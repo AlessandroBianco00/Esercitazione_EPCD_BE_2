@@ -27,33 +27,33 @@ namespace SneakersWebApp.Controllers
 
         public IActionResult AggiungiProdotto()
         {
-            ViewData["ListaProdotti"] = _sneakerService.GetAllProducts();
-            return View(new Sneaker());
+            // ViewData["ListaProdotti"] = _sneakerService.GetAllProducts(); inutile?
+            return View(new SneakerInputModel());
         }
 
         [HttpPost]
-        public IActionResult AggiungiProdotto(Sneaker sneaker)
+        public IActionResult AggiungiProdotto(SneakerInputModel sneakerInput)
         {
-            //var prodotto = new Product { ProductName = inputProdotto.ProductName, Description = inputProdotto.Description, QuantityAvailable = inputProdotto.QuantityAvailable };
+            var sneaker = new Sneaker { ProductName = sneakerInput.ProductName, ProductDescription = sneakerInput.ProductDescription, Price = sneakerInput.Price };
             _sneakerService.CreateSneaker(sneaker);
             string uploads = Path.Combine(_env.WebRootPath, "images");
-            if (sneaker.ProductCover.Length > 0)
+            if (sneakerInput.ProductCover.Length > 0)
             {
                 string filePath = Path.ChangeExtension(Path.Combine(uploads, sneaker.ProductId.ToString()), "jpg");
                 using Stream fileStream = new FileStream(filePath, FileMode.Create);
-                sneaker.ProductCover.CopyTo(fileStream);
+                sneakerInput.ProductCover.CopyTo(fileStream);
             }
-            if (sneaker.ProductImage1.Length > 0)
+            if (sneakerInput.ProductImage1.Length > 0)
             {
                 string filePath = Path.ChangeExtension(Path.Combine(uploads, $"{sneaker.ProductId.ToString()}_extra1"), "jpg");
                 using Stream fileStream = new FileStream(filePath, FileMode.Create);
-                sneaker.ProductImage1.CopyTo(fileStream);
+                sneakerInput.ProductImage1.CopyTo(fileStream);
             }
-            if (sneaker.ProductImage2.Length > 0)
+            if (sneakerInput.ProductImage2.Length > 0)
             {
                 string filePath = Path.ChangeExtension(Path.Combine(uploads, $"{sneaker.ProductId.ToString()}_extra2"), "jpg");
                 using Stream fileStream = new FileStream(filePath, FileMode.Create);
-                sneaker.ProductImage2.CopyTo(fileStream);
+                sneakerInput.ProductImage2.CopyTo(fileStream);
             }
             return RedirectToAction(nameof(Index));
         }
