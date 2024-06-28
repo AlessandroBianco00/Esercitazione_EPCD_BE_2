@@ -15,13 +15,13 @@
                     <div id="carouselExample" class="carousel slide">
                         <div class="carousel-inner">
                             <div class="carousel-item active">
-                                <img src="@ViewBag.Cover" class="d-block img-carousel">
+                                <img src="@ViewBag.Cover" class="d-block img-carousel rounded">
                             </div>
                             <div class="carousel-item">
-                                <img src="@ViewBag.Extra1" class="d-block img-carousel">
+                                <img src="@ViewBag.Extra1" class="d-block img-carousel rounded">
                             </div>
                             <div class="carousel-item">
-                                <img src="@ViewBag.Extra2" class="d-block img-carousel">
+                                <img src="@ViewBag.Extra2" class="d-block img-carousel rounded">
                             </div>
                         </div>
                         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
@@ -33,7 +33,7 @@
                             <span class="visually-hidden">Next</span>
                         </button>
                     </div>
-                    <h5 class="card-title fw-bold text-center">@Model.ProductName</h5>
+                    <h5 class="card-title fw-bold text-center py-2">@Model.ProductName</h5>
                     <p class="card-text">@Model.ProductDescription</p>
                     <div class="d-flex justify-content-between">
                         <p>Prezzo : @Model.Price &euro; </p>
