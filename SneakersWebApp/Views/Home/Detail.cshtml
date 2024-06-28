@@ -1,0 +1,45 @@
+﻿@model Sneaker
+
+@{
+    ViewData["Title"] = "Dettaglio";
+}
+
+<h1>@Model.ProductName</h1>
+
+<div>
+    @if (ViewBag.Cover != null && ViewBag.Extra1 != null && ViewBag.Extra2 != null)
+    {
+        <div class="card">
+            <div class="card-header">@Model.ProductName</div>
+            <div class="card-body">
+                <div id="carouselExample" class="carousel slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <img src="@ViewBag.Cover" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="@ViewBag.Extra1" class="d-block w-100">
+                        </div>
+                        <div class="carousel-item">
+                            <img src="@ViewBag.Extra2" class="d-block w-100">
+                        </div>
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Previous</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="visually-hidden">Next</span>
+                    </button>
+                </div>
+                <h5 class="card-title">@Model.ProductName</h5>
+                <p class="card-text">@Model.ProductDescription</p>
+                <p>Id : @Model.ProductId</p>
+                <a asp-action="Index" class="btn btn-secondary">Torna alla home</a>
+            </div>
+        </div>
+
+    }
+</div>
+

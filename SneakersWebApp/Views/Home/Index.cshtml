@@ -1,0 +1,36 @@
+﻿@model List<Sneaker>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Elenco scarpe disponibili</h1>
+</div>
+
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var sneaker in Model)
+        {
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="card">
+                    <img src="@sneaker.ProductCover" class="card-img-top" alt="@sneaker.ProductName">
+                    <div class="card-body">
+                        <h5 class="card-title">@sneaker.ProductName</h5>
+                        <p class="card-text">@sneaker.ProductDescription</p>
+                        <a asp-action="Detail" asp-route-id="@sneaker.ProductId" class="btn btn-success">Dettaglio</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="row">
+        <div class="col-12 col-md-8 offset-md-2">
+            <p class="alert alert-warning">Non ci sono prodotti disponibili attualmente</p>
+        </div>
+    </div>
+}
+<div class="text-center"><a asp-action="AggiungiProdotto" class="btn btn-primary my-2">Aggiungi al catalogo</a></div>
