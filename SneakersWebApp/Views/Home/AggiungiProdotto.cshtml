@@ -3,54 +3,52 @@
 @{
     ViewData["Title"] = "AggiungiProdotto";
 }
+<div class="text-center">
+    <h1 class="fw-bold">Aggiungi i nuovi arrivi</h1>
 
-<h1>AggiungiProdotto</h1>
-
-<h4>Sneaker</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="AggiungiProdotto" enctype="multipart/form-data">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="ProductName" class="control-label"></label>
-                <input asp-for="ProductName" class="form-control" />
-                <span asp-validation-for="ProductName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductDescription" class="control-label"></label>
-                <input asp-for="ProductDescription" class="form-control" />
-                <span asp-validation-for="ProductDescription" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Price" class="control-label"></label>
-                <input asp-for="Price" class="form-control" />
-                <span asp-validation-for="Price" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductCover" class="control-label"></label>
-                <input asp-for="ProductCover" class="form-control" />
-                <span asp-validation-for="ProductCover" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductImage1" class="control-label"></label>
-                <input asp-for="ProductImage1" class="form-control" />
-                <span asp-validation-for="ProductImage1" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProductImage2" class="control-label"></label>
-                <input asp-for="ProductImage2" class="form-control" />
-                <span asp-validation-for="ProductImage2" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Aggiungi prodotto" class="btn btn-primary" />
-            </div>
-        </form>
+    <h4 class="text-secondary">Compila il form per inserire le nuove scarpe nel catalogo</h4>
+    <hr />
+    <div class="row justify-content-center text-start">
+        <div class="col-md-6">
+            <form asp-action="AggiungiProdotto" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="ProductName" class="control-label"></label>
+                    <input asp-for="ProductName" class="form-control" />
+                    <span asp-validation-for="ProductName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductDescription" class="control-label"></label>
+                    <input asp-for="ProductDescription" class="form-control" />
+                    <span asp-validation-for="ProductDescription" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductCover" class="control-label"></label>
+                    <input asp-for="ProductCover" class="form-control" />
+                    <span asp-validation-for="ProductCover" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductImage1" class="control-label"></label>
+                    <input asp-for="ProductImage1" class="form-control" />
+                    <span asp-validation-for="ProductImage1" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ProductImage2" class="control-label"></label>
+                    <input asp-for="ProductImage2" class="form-control" />
+                    <span asp-validation-for="ProductImage2" class="text-danger"></span>
+                </div>
+                <div class="form-group d-flex justify-content-between">
+                    <input type="submit" value="Aggiungi prodotto" class="btn btn-primary" />
+                    <button type="button" asp-action="Index" class="btn btn-secondary">Torna alla home</button>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index" class="btn btn-secondary">Torna alla home</a>
 </div>
 
 @section Scripts {

@@ -23,6 +23,34 @@ body {
     margin-bottom: 60px;
 }
 
+/* Layout View css */
+
+.shop-logo{
+    width: 5em;
+    border-radius: 100%
+}
+
+.div-main {
+    background-color: #fdf6ee;
+}
+
+/* Index View css */
 .img-home {
     max-width: auto;
+}
+
+/* Form View css */
+
+.form-group{
+    margin: 0.5em 0;
+}
+
+/* Detail View css */
+
+.card-header{
+    font-size: 2em;
+}
+
+.img-carousel{
+    width: 100%;
 }
