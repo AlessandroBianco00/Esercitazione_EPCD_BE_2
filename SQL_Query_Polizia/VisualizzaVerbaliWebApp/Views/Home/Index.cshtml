@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Verbale>
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Lista Verbali</h1>
+</div>
+
+@if (Model.Any())
+{
+    <div class="row">
+        <table class=" offset-1 col-10 table table-borderless">
+            @foreach (var verbale in Model)
+            {
+                <tr>
+                    <td>@verbale.IdVerbale</td>
+                    <td>@verbale.DataViolazione</td>
+                    <td>@verbale.IndirizzoViolazione</td>
+                    <td>@verbale.Nominativo_Agente</td>
+                    <td>@verbale.DataTrascrizioneVerbale</td>
+                    <td>@verbale.Importo &euro;</td>
+                    <td>@verbale.DecurtamentoPunti</td>
+                    <td><a class="btn btn-success" asp-action="Detail" asp-route-id="@verbale.IdVerbale">Dettaglio</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+}
+else
+{
+    <div class="row mt-2">
+        <div class="col alert alert-warning">Non ci sono impiegati assunti</div>
+    </div>
+}

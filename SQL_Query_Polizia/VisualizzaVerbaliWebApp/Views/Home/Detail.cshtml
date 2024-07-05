@@ -1,0 +1,32 @@
+﻿@model Verbale
+
+@{
+    ViewData["Title"] = "Detail";
+}
+
+<h1>Dettaglio verbale n° @Model.IdVerbale</h1>
+
+<table class=" offset-1 col-10 table table-borderless">
+    <tr>
+        <th>Id Verbale</th>
+        <th>Data Violazione</th>
+        <th>Indirizzo Violazione</th>
+        <th>Nominativo Agente</th>
+        <th>Data Trascrizione Verbale</th>
+        <th>Importo</th>
+        <th>Decurtamento Punti</th>
+        <th>Id Anagrafico</th>
+        <th>Id Violazione</th>
+    </tr>
+    <tr>
+        <td>@Model.IdVerbale</td>
+        <td>@Model.DataViolazione</td>
+        <td>@Model.IndirizzoViolazione</td>
+        <td>@Model.Nominativo_Agente</td>
+        <td>@Model.DataTrascrizioneVerbale</td>
+        <td>@Model.Importo &euro;</td>
+        <td>@Model.DecurtamentoPunti</td>
+        <td>@Model.IdAnagrafico_FK</td>
+        <td>@Model.IdViolazione_FK</td>
+    </tr>
+</table>
