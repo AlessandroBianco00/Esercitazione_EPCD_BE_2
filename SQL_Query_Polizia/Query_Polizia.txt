@@ -1,0 +1,239 @@
+-- CREAZIONE TABELLE
+
+CREATE TABLE [dbo].Anagrafica
+(
+    	[IdAnagrafica] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[Cognome] NCHAR(50) NOT NULL, 
+    	[Nome] NCHAR(50) NOT NULL, 
+    	[Indirizzo] NCHAR(75) NOT NULL, 
+    	[Città] NCHAR(50) NOT NULL, 
+    	[CAP] CHAR(5) NOT NULL, 
+    	[Cod_Fisc] CHAR(16) NOT NULL, 
+    	CONSTRAINT [CK_Anagrafica_CAP] CHECK (LEN(CAP) = 5), 
+    	CONSTRAINT [CK_Anagrafica_CF] CHECK (LEN(Cod_Fisc) = 16)
+)
+
+CREATE TABLE [dbo].Violazione
+(
+	[IdViolazione] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[Descrizione] NCHAR(75) NOT NULL, 
+)
+
+CREATE TABLE [dbo].Verbale
+(
+	[IdVerbale] INT NOT NULL PRIMARY KEY IDENTITY, 
+    	[DataViolazione] DATETIME2 NOT NULL, 
+    	[IndirizzoViolazione] NCHAR(75) NOT NULL, 
+    	[Nominativo_Agente] NCHAR(75) NOT NULL, 
+    	[DataTrascrizioneVerbale] DATETIME2 NOT NULL, 
+    	[Importo] MONEY NOT NULL, 
+    	[DecurtamentoPunti] INT NOT NULL DEFAULT 0, 
+	[IdAnagrafico_FK] INT NOT NULL,
+	[IdViolazione_FK] INT NOT NULL,
+    	CONSTRAINT [CK_Verbale_Importo] CHECK (Importo > 0), 
+    	CONSTRAINT [FK_Verbale_Anagrafica] FOREIGN KEY (IdAnagrafico_FK) REFERENCES Anagrafica(IdAnagrafica), 
+    	CONSTRAINT [FK_Verbale_Violazione] FOREIGN KEY (IdViolazione_FK) REFERENCES Violazione(IdViolazione)
+)
+
+-- QUERY
+
+-- 1 Conteggio dei verbali trascritti
+
+SELECT 
+	COUNT(IdVerbale) AS TotaleVerbali 
+FROM 
+	Verbale
+
+--2 Conteggio dei verbali trascritti raggruppati per anagrafe
+
+SELECT 
+	a.IdAnagrafica, 
+	a.Nome, 
+	a.Cognome, 
+	COUNT(v.IdVerbale) AS TotaleVerbaliPerSoggetto	
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+GROUP BY 
+	a.IdAnagrafica,
+	a.Nome, 
+	a.Cognome
+ORDER BY 
+	a.IdAnagrafica
+
+-- 3 Conteggio dei verbali trascritti raggruppati per tipo di violazione
+
+SELECT 
+	z.IdViolazione, 
+	z.Descrizione, 
+	COUNT(v.IdVerbale) AS TotaleViolazionePerTipo
+FROM 
+	Verbale AS v
+RIGHT JOIN 
+	Violazione AS z ON v.IdViolazione_FK = z.IdViolazione
+GROUP BY 
+	z.IdViolazione, 
+	z.Descrizione
+ORDER BY 
+	z.IdViolazione
+
+-- 4 Totale dei punti decurtati per ogni anagrafe
+
+SELECT 
+	a.Nome, 
+	a.Cognome, 
+	SUM(v.DecurtamentoPunti) AS TotalePuntiDecurtati 
+FROM 
+	Verbale AS v
+RIGHT JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+GROUP BY 
+	a.Nome, 
+	a.Cognome
+ORDER BY 
+	TotalePuntiDecurtati DESC
+
+-- 5 Cognome, Nome, Data violazione, Indirizzo violazione, importo e punti decurtati per tutti gli anagrafici residenti a Palermo
+-- Aggiunta 2° JOIN per mostrare il tipo di violazione
+
+SELECT 
+	a.Cognome, 
+	a.Nome, 
+	FORMAT (v.DataViolazione, 'dd/MM/yyyy') AS DataViolazione,
+	v.IndirizzoViolazione, 
+	v.Importo, 
+	v.DecurtamentoPunti, 
+	z.Descrizione
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+INNER JOIN 
+	Violazione AS z ON v.IdViolazione_FK = z.IdViolazione
+WHERE 
+	a.Città = 'Palermo'
+ORDER BY 
+	a.Cognome
+
+-- 6 Cognome, Nome, Indirizzo, Data violazione, importo e punti decurtati per le violazioni fatte tra il febbraio 2009 e luglio 2009
+
+SELECT 
+	a.Cognome, 
+	a.Nome, 
+	a.Indirizzo,
+	v.DataViolazione,
+	v.Importo, 
+	v.DecurtamentoPunti
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+WHERE 
+	v.DataViolazione BETWEEN '2009-02-01' AND '2009-07-31'
+ORDER BY 
+	v.DataViolazione
+
+-- 7 Totale degli importi per ogni anagrafico
+
+SELECT 
+	a.IdAnagrafica, 
+	a.Nome,
+	a.Cognome, 
+	SUM(v.Importo) AS ImportoTotale
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+GROUP BY 
+	a.IdAnagrafica, 
+	a.Nome, 
+	a.Cognome
+ORDER BY 
+	a.IdAnagrafica
+
+-- 8 Visualizzazione di tutti gli anagrafici residenti a Palermo
+
+SELECT 
+	IdAnagrafica, 
+	Nome, 
+	Cognome, 
+	Indirizzo, 
+	Città, 
+	CAP, 
+	Cod_Fisc
+FROM 
+	Anagrafica
+WHERE 
+	Anagrafica.Città = 'Palermo'
+
+-- 9 Query che visualizzi Data violazione, Importo e decurtamento punti relativi ad una certa data
+-- Elenco infrazioni il 01/01/2021
+
+SELECT 
+	FORMAT (DataViolazione, 'dd/MM/yyyy') AS DataViolazione,
+	Importo, 
+	DecurtamentoPunti
+FROM 
+	Verbale
+WHERE 
+	DataViolazione = '2021-01-01'
+
+-- Raggruppamento importo e punti decurtati il 01/01/2021 (interpretazione alternativa)
+
+SELECT 
+	FORMAT (DataViolazione, 'dd/MM/yyyy') AS DataViolazione,
+	SUM(Importo) AS ImportoTotaleGiornaliero, 
+	SUM(DecurtamentoPunti) AS TotalePuntiDecurtatiData
+FROM 
+	Verbale
+WHERE 
+	DataViolazione = '2021-01-01'
+GROUP BY
+	DataViolazione
+
+-- 10 Conteggio delle violazioni contestate raggruppate per Nominativo dell’agente di Polizia, 
+
+SELECT 
+	Nominativo_Agente, 
+	COUNT(IdVerbale) AS ViolazioniRegistratePerAgente
+FROM 
+	Verbale
+GROUP BY 
+	Nominativo_Agente
+
+-- 11. Cognome, Nome, Indirizzo, Data violazione, Importo e punti decurtati per tutte le violazioni che superino il decurtamento di 5 punti, 
+
+SELECT 
+	a.Cognome, 
+	a.Nome, 
+	a.Indirizzo, 
+	FORMAT (v.DataViolazione, 'dd/MM/yyyy') AS DataViolazione, 
+	v.Importo, 
+	v.DecurtamentoPunti
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+WHERE 
+	v.DecurtamentoPunti > 5
+ORDER BY 
+	v.DecurtamentoPunti
+
+-- 12. Cognome, Nome, Indirizzo, Data violazione, Importo e punti decurtati per tutte le violazioni che superino l’importo di 400 euro. 
+
+SELECT 
+	a.Cognome, 
+	a.Nome, 
+	a.Indirizzo, 
+	FORMAT (v.DataViolazione, 'dd/MM/yyyy') AS DataViolazione, 
+	v.Importo, 
+	v.DecurtamentoPunti
+FROM 
+	Verbale AS v
+INNER JOIN 
+	Anagrafica AS a ON v.IdAnagrafico_FK = a.IdAnagrafica
+WHERE 
+	v.Importo > 400
+ORDER BY 
+	v.Importo
