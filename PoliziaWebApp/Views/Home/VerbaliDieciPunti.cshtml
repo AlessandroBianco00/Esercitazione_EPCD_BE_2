@@ -20,7 +20,7 @@
         @foreach (var verbale in Model)
         {
             <tr>
-                <td>@verbale.Importo &euro;</td>
+                <td>@verbale.Importo.ToString("F2") &euro;</td>
                 <td>@verbale.Nome</td>
                 <td>@verbale.Cognome</td>
                 <td>@verbale.DataViolazione</td>
