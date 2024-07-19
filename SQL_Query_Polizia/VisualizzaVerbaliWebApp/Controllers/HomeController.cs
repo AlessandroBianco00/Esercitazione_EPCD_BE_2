@@ -18,7 +18,7 @@ namespace VisualizzaVerbaliWebApp.Controllers
 
         public IActionResult Index()
         {
-            return View(_verbaleService.GetAll().OrderByDescending(a => a.IdVerbale));
+            return View(_verbaleService.GetAll(0).OrderByDescending(a => a.IdVerbale));
         }
 
         public IActionResult Detail(int id)

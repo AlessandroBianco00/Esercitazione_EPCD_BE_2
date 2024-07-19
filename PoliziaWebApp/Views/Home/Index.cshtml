@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Benvenuto nel sito della polizia municipale</h1>
+    <p>Controlla o aggiungi dati presenti nel nostro database</p>
+</div>
+
+<div class="container">
+    <div class="row g-2">
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Registra trasgressore</div>
+                <div class="notibody">Inserisci trasgressore nei registri del database</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="AddAnagrafica">Registra</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Aggiungi violazione</div>
+                <div class="notibody">Inserisci una nuova violazione</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="AddViolazione">Aggiungi</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-4">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Aggiungi verbale</div>
+                <div class="notibody">Compila un nuovo verbale</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="AddVerbale">Aggiungi</a></div>
+            </div>
+        </div>
+    </div>
+</div>

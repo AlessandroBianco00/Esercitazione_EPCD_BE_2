@@ -1,0 +1,31 @@
+﻿@model Violazione
+
+@{
+    ViewData["Title"] = "Aggiungi Violazione";
+}
+
+<h1 class="text-center fw-bold">Aggiungi nuova violazione</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="AddViolazione">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Aggiungi Violazione</p>
+                <label class="label-FPA">
+                    <input asp-for="Descrizione" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Descrizione della violazione</span>
+                    <span asp-validation-for="Descrizione" class="text-danger"></span>
+                </label>
+                <input type="submit" value="Aggiungi" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

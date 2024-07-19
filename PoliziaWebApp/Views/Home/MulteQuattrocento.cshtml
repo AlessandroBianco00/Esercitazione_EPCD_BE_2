@@ -1,0 +1,39 @@
+﻿@model List<Verbale>
+
+@{
+    ViewData["Title"] = "MulteQuattrocento";
+}
+
+<h6> I verbali il cui importo è maggiore di 400 &euro;</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>DataViolazione</th>
+            <th>IndirizzoViolazione</th>
+            <th>Nominativo agente</th>
+            <th>DataTrascrizioneVerbale</th>
+            <th>Importo</th>
+            <th>DecurtamentoPunti</th>
+            <th>IdAnagrafico</th>
+            <th>IdViolazione</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verbale in Model)
+        {
+            <tr>
+                <td>@verbale.IdVerbale</td>
+                <td>@verbale.DataViolazione</td>
+                <td>@verbale.IndirizzoViolazione</td>
+                <td>@verbale.Nominativo_Agente</td>
+                <td>@verbale.DataTrascrizioneVerbale</td>
+                <td>@verbale.Importo &euro;</td>
+                <td>@verbale.DecurtamentoPunti;</td>
+                <td>@verbale.IdAnagrafico_FK</td>
+                <td>@verbale.IdViolazione_FK</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,35 @@
+﻿@model List<AnagraficaInt>
+
+@{
+    ViewData["Title"] = "VerbaliPerTrasgressore";
+}
+
+<h6> Visualizzazione dell totale dei verbali trascritti raggruppati per trasgressore</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Indirizzo</th>
+            <th>Città</th>
+            <th>Codice fiscale</th>
+            <th>Totale verbali</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var anagraficaInt in Model)
+        {
+            <tr>
+                <td>@anagraficaInt.IdAnagrafica</td>
+                <td>@anagraficaInt.Nome</td>
+                <td>@anagraficaInt.Cognome</td>
+                <td>@anagraficaInt.Indirizzo</td>
+                <td>@anagraficaInt.Città</td>
+                <td>@anagraficaInt.Cod_Fisc</td>
+                <td>@anagraficaInt.queryValue</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,87 @@
+﻿@model Verbale
+
+@{
+    ViewData["Title"] = "Aggiungi Verbale";
+    List<Violazione> violazioni = ViewBag.Violazione;
+    List<Anagrafica> anagrafiche = ViewBag.Anagrafica;
+}
+
+<h1 class="text-center fw-bold">Aggiungi un nuovo verbale</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="AddVerbale">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Aggiungi Verbale</p>
+                <label class="label-FPA">
+                    <input asp-for="DataViolazione" class="input-FPA" type="datetime" placeholder="" required="">
+                    <span>Data di violazione</span>
+                    <span asp-validation-for="DataViolazione" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="IndirizzoViolazione" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Indirizzo violazione</span>
+                    <span asp-validation-for="IndirizzoViolazione" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="Nominativo_Agente" class="input-FPA" type="text" placeholder="" required="">
+                    <span>Nominativo agente</span>
+                    <span asp-validation-for="Nominativo_Agente" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="DataTrascrizioneVerbale" class="input-FPA" type="datetime" placeholder="" required="">
+                    <span>Data di trascrizione del verbale</span>
+                    <span asp-validation-for="DataTrascrizioneVerbale" class="text-danger"></span>
+                </label>
+
+                <div class="flex-FPA">
+                    <label class="label-FPA">
+                        <input asp-for="Importo" class="input-FPA" type="number" placeholder="" required="">
+                        <span>Importo (&euro;)</span>
+                        <span asp-validation-for="Importo" class="text-danger"></span>
+                    </label>
+
+                    <label class="label-FPA">
+                        <input asp-for="DecurtamentoPunti" class="input-FPA" type="number" placeholder="" required="">
+                        <span>Punti decurtati</span>
+                        <span asp-validation-for="DecurtamentoPunti" class="text-danger"></span>
+                    </label>
+                </div>
+
+                <label class="label-FPA">
+                    <label asp-for="IdAnagrafico_FK" class="control-label"></label>
+                    <select asp-for="IdAnagrafico_FK" class="form-select input-FPA">
+                        @foreach (var a in anagrafiche)
+                        {
+                            <option value="@a.IdAnagrafica">@a.Nome @a.Cognome (@a.Cod_Fisc)</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdAnagrafico_FK" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <label asp-for="IdViolazione_FK" class="control-label"></label>
+                    <select asp-for="IdViolazione_FK" class="form-select input-FPA">
+                        @foreach (var v in violazioni)
+                        {
+                            <option value="@v.IdViolazione">@v.Descrizione</option>
+                        }
+                    </select>
+                    <span asp-validation-for="IdViolazione_FK" class="text-danger"></span>
+                </label>
+                <input type="submit" value="Registra" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

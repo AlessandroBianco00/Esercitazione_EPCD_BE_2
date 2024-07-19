@@ -1,0 +1,31 @@
+﻿@model List<VerbaleEAnagrafica>
+
+@{
+    ViewData["Title"] = "VerbaliDieciPunti";
+}
+
+<h6> Verbali che superano i 10 punti decurtati</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Importo</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>DataViolazione</th>
+            <th>DecurtamentoPunti</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verbale in Model)
+        {
+            <tr>
+                <td>@verbale.Importo &euro;</td>
+                <td>@verbale.Nome</td>
+                <td>@verbale.Cognome</td>
+                <td>@verbale.DataViolazione</td>
+                <td>@verbale.DecurtamentoPunti</td>
+            </tr>
+        }
+    </tbody>
+</table>

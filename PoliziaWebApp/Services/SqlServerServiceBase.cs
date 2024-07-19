@@ -1,9 +1,7 @@
 ﻿using System.Data.Common;
 using System.Data.SqlClient;
 
-// Inserisco le proprietà e metodi di SqlServerServiceBase in VerbaleService
-// SERVIZIO INUTILIZZATO
-namespace VisualizzaVerbaliWebApp.Services
+namespace PoliziaWebApp.Services
 {
     public class SqlServerServiceBase
     {
@@ -11,7 +9,7 @@ namespace VisualizzaVerbaliWebApp.Services
 
         public SqlServerServiceBase(IConfiguration config)
         {
-            _connection = new SqlConnection(config.GetConnectionString("Verbali"));
+            _connection = new SqlConnection(config.GetConnectionString("PoliziaMunicipale"));
         }
         protected DbCommand GetCommand(string commandText)
         {

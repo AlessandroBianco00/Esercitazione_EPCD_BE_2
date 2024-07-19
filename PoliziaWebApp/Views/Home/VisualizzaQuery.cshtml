@@ -1,0 +1,49 @@
+﻿@{
+    ViewData["Title"] = "Visualizza Query";
+}
+
+<div class="text-center">
+    <h1 class="display-4">ViewPage</h1>
+    <p>Scegli quale i dati da visualizzare</p>
+</div>
+
+<div class="container">
+    <div class="row g-2">
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Verbali per trasgressore</div>
+                <div class="notibody">Visualizza il totale dei verbali trascritti raggruppati per trasgressore</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="VerbaliPerTrasgressore">Visualizza</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Punti decurtati per trasgressore</div>
+                <div class="notibody">Visualizza il totale dei punti decurtati raggruppati per trasgressore</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="PuntiPerTrasgressore">Visualizza</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Verbali decurtazioni maggiori di 10</div>
+                <div class="notibody">Visualizza verbali che superano i 10 punti decurtati</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="VerbaliDieciPunti">Visualizza</a></div>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-3">
+            <div class="notification">
+                <div class="notiglow"></div>
+                <div class="notiborderglow"></div>
+                <div class="notititle">Multe maggiori di 400 &euro;</div>
+                <div class="notibody">Visualizza verbali il cui importo è maggiore di 400 euro</div>
+                <div class="notibody mt-2"><a id="btn-form-index" asp-area="" asp-controller="Home" asp-action="MulteQuattrocento">Visualizza</a></div>
+            </div>
+        </div>
+    </div>
+</div>
