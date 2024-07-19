@@ -27,6 +27,19 @@ body {
     border-radius: 10px;
 }
 
+nav img {
+    height: 6em;
+}
+
+.bg-nav {
+    background: rgb(251,251,251);
+    background: linear-gradient(90deg, rgba(251,251,251,1) 0%, rgba(255,255,255,1) 5%, rgba(0,212,255,1) 40%, rgba(146,237,255,1) 65%, rgba(0,212,255,1) 100%);
+}
+
+.blu-scuro {
+    color: #0a1145;
+}
+
 /* HOME INDEX */
 
 /*card*/

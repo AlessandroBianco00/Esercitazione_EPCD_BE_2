@@ -7,6 +7,7 @@ using System.Diagnostics;
 
 namespace PoliziaWebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -20,6 +21,7 @@ namespace PoliziaWebApp.Controllers
             _verbaleReportService = verbaleReportService;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();
@@ -30,7 +32,7 @@ namespace PoliziaWebApp.Controllers
             return View();
         }
 
-        [Authorize]
+        [Authorize(Policy = Policies.IsAdmin)]
         public IActionResult Privacy()
         {
             return View();
