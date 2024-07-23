@@ -1,7 +1,30 @@
+using HotelWebApp;
+using HotelWebApp.Interfaces;
+using HotelWebApp.Services;
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services
+    .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(opt =>
+    {
+        // pagina alla quale l'utente sarà indirizzato se non è stato già riconosciuto
+        opt.LoginPath = "/Account/Login";
+    });
+
+builder.Services
+    .AddAuthorization(opt => {
+        opt.AddPolicy(Policies.LoggedIn, cfg => cfg.RequireAuthenticatedUser());
+        opt.AddPolicy(Policies.IsAdmin, cfg => cfg.RequireRole("Admin"));
+        opt.AddPolicy(Policies.IsBaseUser, cfg => cfg.RequireRole("User"));
+    });
+
+builder.Services
+    .AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();
 
