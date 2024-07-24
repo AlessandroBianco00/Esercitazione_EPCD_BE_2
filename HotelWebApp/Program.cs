@@ -1,6 +1,7 @@
 using HotelWebApp;
 using HotelWebApp.Interfaces;
 using HotelWebApp.Services;
+using HotelWebApp.Services.Dao;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,8 @@ builder.Services
     });
 
 builder.Services
+    .RegisterDAOs()
+    .AddScoped<DbContext>()
     .AddScoped<IAuthService, AuthService>();
 
 var app = builder.Build();

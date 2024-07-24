@@ -1,0 +1,67 @@
+﻿@using HotelWebApp.Dto;
+@model List<CustomerDto>
+
+@{
+    ViewData["Title"] = "All Customers";
+}
+
+<h6>Lista clienti registrati</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Codice fiscale</th>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Città</th>
+            <th>Provincia</th>
+            <th>Email</th>
+            <th>Telefono fisso</th>
+            <th>Cellulare</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr>
+                <td>@customer.FiscalCode</td>
+                <td>@customer.FirstName</td>
+                <td>@customer.LastName</td>
+                <td>@customer.City</td>
+                <td>@customer.Province</td>
+                <td>@customer.Email</td>
+                <td>@customer.PhoneNumber</td>
+                <td>@customer.MobilePhoneNumber</td>
+                <td><button class="btn btn-dark" onclick="deleteCustomer('@customer.FiscalCode')">Elimina</button></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@section Scripts {
+
+    <script>
+        function deleteCustomer(fiscalCode) {
+            if (confirm("Sicuro di voler eliminare il cliente?")) {
+                $.ajax({
+                    url: '@Url.Action("DeleteCustomer", "Customer")',
+                    type: 'POST',
+                    data: { 'FiscalCode': fiscalCode },
+                    success: function (result) {
+                        if (result.success) {
+                            location.reload();
+                        } else {
+                            alert('Errore nell eliminazione');
+                        }
+                    },
+                    error: function (err) {
+                        alert('Error: ' + err.responseText);
+                    }
+                });
+            }
+        }
+    </script>
+}

@@ -1,0 +1,59 @@
+﻿@using HotelWebApp.Dto
+@model CustomerDto
+
+@{
+    ViewData["Title"] = "Aggiungi Cliente";
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="form-box-dao col d-flex justify-content-center">
+            <form class="form-dao" asp-action="AddCustomer">
+                @Html.AntiForgeryToken()
+                <p class="title-dao">New Customer</p>   
+                <p class="subtitle-dao">Register a new customer.</p>
+                <div class="form-container-dao">
+                    <div>
+                        <input asp-for="FiscalCode" class="input-dao" placeholder="FiscalCode" />
+                        <span asp-validation-for="FiscalCode" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="FirstName" class="input-dao" placeholder="FirstName" />
+                        <span asp-validation-for="FirstName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="LastName" class="input-dao" placeholder="LastName" />
+                        <span asp-validation-for="LastName" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="City" class="input-dao" placeholder="City" />
+                        <span asp-validation-for="City" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="Province" class="input-dao" placeholder="Province" />
+                        <span asp-validation-for="Province" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="Email" class="input-dao" placeholder="Email" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="PhoneNumber" class="input-dao" placeholder="PhoneNumber" />
+                        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                    </div>
+                    <div>
+                        <input asp-for="MobilePhoneNumber" class="input-dao" placeholder="MobilePhoneNumber" />
+                        <span asp-validation-for="MobilePhoneNumber" class="text-danger"></span>
+                    </div>
+                </div>
+                <button type="submit">Create</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
