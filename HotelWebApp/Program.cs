@@ -14,7 +14,7 @@ builder.Services
     .AddCookie(opt =>
     {
         // pagina alla quale l'utente sarà indirizzato se non è stato già riconosciuto
-        opt.LoginPath = "/Account/Login";
+        opt.LoginPath = "/Account/AuthPage";
     });
 
 builder.Services
@@ -27,7 +27,8 @@ builder.Services
 builder.Services
     .RegisterDAOs()
     .AddScoped<DbContext>()
-    .AddScoped<IAuthService, AuthService>();
+    .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IPasswordEncoder, PasswordEncoder>();
 
 var app = builder.Build();
 

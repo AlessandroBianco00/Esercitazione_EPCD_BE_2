@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using HotelWebApp.Models;
 using HotelWebApp.Interfaces;
+using HotelWebApp.Dto;
 
 namespace HotelWebApp.Controllers
 {
@@ -49,6 +50,23 @@ namespace HotelWebApp.Controllers
         {
             await HttpContext.SignOutAsync();
             return RedirectToAction("Index", "Home");
+        }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Register(User user)
+        {
+            authenticationService.Register(user);
+            return RedirectToAction(nameof(Login));
+        }
+
+        public IActionResult AuthPage()
+        {
+            return View();
         }
     }
 }

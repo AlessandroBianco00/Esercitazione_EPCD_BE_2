@@ -87,7 +87,7 @@ namespace HotelWebApp.Services.Dao
                     PhoneNumber = reader.GetString(6),
                     MobilePhoneNumber = reader.GetString(7)
                 };
-                throw new Exception("Customer with id = {customerId} not found");
+                throw new Exception("Customer with id = {fiscalCode} not found");
             }
             catch (Exception ex)
             {
