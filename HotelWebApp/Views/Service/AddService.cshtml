@@ -86,12 +86,14 @@
         }
 
         function updateInput() {
+            console.log(1)
             let servizio = $("#select-service").val();
             $.ajax({
-                url: '@Url.Action("ServiceById", "ServiceApi")', //errore in api
+                url: 'api/serviceapi/id', //errore in api
                 method: 'get',
                 data: { 'serviceId': `${servizio}` },
                 success: (data) => {
+                    console.log(2)
                     console.log(data);
                     $("#service-description").val(data.description);
                     $("#service-price").val(data.price);
