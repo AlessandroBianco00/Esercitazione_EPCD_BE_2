@@ -24,13 +24,13 @@
 
                 <div class="flex-FPA">
                     <label class="label-FPA">
-                        <input asp-for="Description" class="input-FPA" type="date" placeholder="" required="" disabled>
+                        <input asp-for="Description" class="input-FPA" type="text" placeholder="" required="" disabled id="service-description">
                         <span>Description</span>
                         <span asp-validation-for="Description" class="text-danger"></span>
                     </label>
 
                     <label class="label-FPA">
-                        <input asp-for="Price" class="input-FPA" type="date" placeholder="" required="" disabled>
+                        <input asp-for="Price" class="input-FPA" type="number" placeholder="" required="" disabled id="service-price">
                         <span>Price per unit</span>
                         <span asp-validation-for="Price" class="text-danger"></span>
                     </label>
@@ -43,12 +43,12 @@
                 </label>
 
                 <label class="label-FPA">
-                    <input asp-for="Date" class="input-FPA" type="number" placeholder="" required="">
+                    <input asp-for="Date" class="input-FPA" type="date" placeholder="" required="">
                     <span>Date</span>
                     <span asp-validation-for="Date" class="text-danger"></span>
                 </label>
 
-                label class="label-FPA">
+                <label class="label-FPA">
                 <label asp-for="ReservationId_FK" class="control-label"></label>
                 <select asp-for="ReservationId_FK" class="form-select input-FPA" id="select-reservation">
                 </select>
@@ -67,6 +67,7 @@
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
+
         function getReservations() {
             $.ajax({
                 url: '@Url.Action("AllReservations", "ReservationApi")',
@@ -77,13 +78,50 @@
                     $(data).each((_, reservation) => {
                         console.log(reservation)
                         let option = $('<option>').val(reservation.reservationId).text(`Prenotazione n°${reservation.reservationId}`);
-                        option.appendTo(selectRoom)
+                        option.appendTo(selectReservation)
                     })
                 },
                 error: (e) => console.log(e)
             })
         }
 
+        function updateInput() {
+            let servizio = $("#select-service").val();
+            $.ajax({
+                url: '@Url.Action("ServiceById", "ServiceApi")', //errore in api
+                method: 'get',
+                data: { 'serviceId': `${servizio}` },
+                success: (data) => {
+                    console.log(data);
+                    $("#service-description").val(data.description);
+                    $("#service-price").val(data.price);
+                }
+            });
+        }
+
+        function getServices() {
+            $.ajax({
+                url: '@Url.Action("AllServices", "ServiceApi")',
+                method: 'get',
+                success: (data) => {
+                    let selectService = $("#select-service")
+                    selectService.empty()
+                    $(data).each((_, service) => {
+                        console.log(service)
+                        let option = $('<option>').val(service.serviceId).text(`${service.description}`);
+                        option.appendTo(selectService)
+                    })
+                    updateInput()
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        $(() => {
+            $("#select-service").change(() => updateInput())
+        })
+
+        getServices()
         getReservations();
     </script>
 }
