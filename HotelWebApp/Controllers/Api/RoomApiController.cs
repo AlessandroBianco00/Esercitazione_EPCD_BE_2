@@ -7,19 +7,19 @@ namespace HotelWebApp.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReservationApiController : ControllerBase
+    public class RoomApiController : ControllerBase
     {
         private readonly DbContext _dbContext;
 
-        public ReservationApiController(DbContext dbContext)
+        public RoomApiController(DbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public ActionResult<IEnumerable<CustomerDto>> AllReservations()
+        public ActionResult<IEnumerable<CustomerDto>> AllRooms()
         {
-            var reservations = _dbContext.Reservation.GetAllReservations();
-            return Ok(reservations);
+            var rooms = _dbContext.Room.GetAllRooms();
+            return Ok(rooms);
         }
     }
 }

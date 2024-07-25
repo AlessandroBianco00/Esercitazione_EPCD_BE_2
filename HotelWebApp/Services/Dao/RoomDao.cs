@@ -45,7 +45,7 @@ namespace HotelWebApp.Services.Dao
                     {
                         RoomNumber = reader.GetInt32(0),
                         Description = reader.GetString(1),
-                        Type = reader.GetString(2)[0]
+                        Type = (RoomType)reader.GetString(2)[0]
                     });
                 }
                 conn.Close();
@@ -70,7 +70,7 @@ namespace HotelWebApp.Services.Dao
                 {
                     RoomNumber = reader.GetInt32(0),
                     Description = reader.GetString(1),
-                    Type = reader.GetChar(2)
+                    Type = (RoomType)reader.GetString(2)[0]
                 };
                 throw new Exception("Room with id = {roomNumber} not found");
             }

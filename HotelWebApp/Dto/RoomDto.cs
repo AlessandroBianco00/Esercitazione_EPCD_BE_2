@@ -17,6 +17,6 @@ namespace HotelWebApp.Dto
         public string Description { get; set; }
 
         [Required]
-        public char Type { get; set; }
+        public RoomType Type { get; set; }
     }
 }

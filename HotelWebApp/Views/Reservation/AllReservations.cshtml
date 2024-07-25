@@ -38,9 +38,9 @@
                         console.log(reservation)
                         let trow = $('<tr>')
                         let td1 = $('<td>').text(`${reservation.reservationId}`)
-                        let td2 = $('<td>').text(`${reservation.bookingDate}`)
-                        let td3 = $('<td>').text(`${reservation.checkInDate}`)
-                        let td4 = $('<td>').text(`${reservation.checkOutDate}`)
+                        let td2 = $('<td>').text(new Date(reservation.bookingDate).toLocaleDateString());
+                        let td3 = $('<td>').text(new Date(reservation.checkInDate).toLocaleDateString());
+                        let td4 = $('<td>').text(new Date(reservation.checkOutDate).toLocaleDateString());
                         let td5 = $('<td>').text(`${reservation.deposit}`)
                         let td6 = $('<td>').text(`${reservation.dailyCost}`)
                         let td7 = $('<td>').text(`${reservation.roomNumber_FK}`)

@@ -7,7 +7,7 @@
     List<CustomerDto> customers = ViewBag.Customers;
 }
 
-<h1 class="text-center fw-bold">Registra nuovo trasgressore</h1>
+<h1 class="text-center fw-bold">Registra una nuova prenotazione</h1>
 
 <div class="container">
     <div class="row">
@@ -45,11 +45,7 @@
 
                 <label class="label-FPA">
                     <label asp-for="RoomNumber_FK" class="control-label"></label>
-                    <select asp-for="RoomNumber_FK" class="form-select input-FPA">
-                        @foreach (var r in rooms)
-                        {
-                            <option value="@r.RoomNumber">Stanza n°@r.RoomNumber</option>
-                        }
+                    <select asp-for="RoomNumber_FK" class="form-select input-FPA" id="select-room">
                     </select>
                     <span asp-validation-for="RoomNumber_FK" class="text-danger"></span>
                 </label>
@@ -76,4 +72,24 @@
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
+    <script>
+        function getRooms() {
+            $.ajax({
+                url: '@Url.Action("AllRooms", "RoomApi")',
+                method: 'get',
+                success: (data) => {
+                    let selectRoom = $("#select-room")
+                    selectRoom.empty()
+                    $(data).each((_, room) => {
+                        console.log(room)
+                        let option = $('<option>').val(room.roomNumber).text(`Stanza n°${room.roomNumber}`);
+                        option.appendTo(selectRoom)
+                    })
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        getRooms();
+    </script>
 }

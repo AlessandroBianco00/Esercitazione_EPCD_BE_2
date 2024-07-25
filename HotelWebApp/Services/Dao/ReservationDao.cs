@@ -21,18 +21,19 @@ namespace HotelWebApp.Services.Dao
                 using var conn = new SqlConnection(connectionString);
                 conn.Open();
                 using var cmd_year = new SqlCommand(YEAR_NUMBER, conn);
-                var result_year = cmd_year.ExecuteScalar();
+                var year_prog = cmd_year.ExecuteScalar();
+                var result_year = year_prog != DBNull.Value ? (int)year_prog : 1;
                 using var cmd = new SqlCommand(INSERT_COMMAND, conn);
-                cmd.Parameters.Add(new SqlParameter("@bookingDate", DateOnly.FromDateTime(DateTime.Now)));
-                cmd.Parameters.Add(new SqlParameter("@checkInDate", DateOnly.FromDateTime(reservation.CheckInDate)));
-                cmd.Parameters.Add(new SqlParameter("@checkOutDate", DateOnly.FromDateTime(reservation.CheckInDate)));
+                cmd.Parameters.Add(new SqlParameter("@bookingDate", DateTime.Now));
+                cmd.Parameters.Add(new SqlParameter("@checkInDate", reservation.CheckInDate));
+                cmd.Parameters.Add(new SqlParameter("@checkOutDate", reservation.CheckOutDate));
                 cmd.Parameters.Add(new SqlParameter("@deposit", reservation.Deposit));
                 cmd.Parameters.Add(new SqlParameter("@dailyCost", reservation.DailyCost));
                 cmd.Parameters.Add(new SqlParameter("@roomNumber", reservation.RoomNumber_FK));
                 cmd.Parameters.Add(new SqlParameter("@fiscalCode", reservation.FiscalCode_FK));
                 cmd.Parameters.Add(new SqlParameter("@type", reservation.Type));
                 cmd.Parameters.Add(new SqlParameter("@year", reservation.CheckInDate.Year));
-                cmd.Parameters.Add(new SqlParameter("@yearProgNum", result_year));
+                cmd.Parameters.Add(new SqlParameter("@yearProgNum", result_year + 1 ));
                 var result = cmd.ExecuteNonQuery();
                 if (result != 1) throw new Exception("Inserimento fallito");
             }
@@ -62,7 +63,7 @@ namespace HotelWebApp.Services.Dao
                         DailyCost = reader.GetDecimal(5),
                         RoomNumber_FK = reader.GetInt32(6),
                         FiscalCode_FK = reader.GetString(7),
-                        Type = (ReservationType)reader.GetChar(8),
+                        Type = (ReservationType)reader.GetString(8)[0],
                         Year = reader.GetInt32(9),
                         YearProgressiveNumber = reader.GetInt32(10)
                     });

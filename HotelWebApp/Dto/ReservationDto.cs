@@ -31,7 +31,6 @@ namespace HotelWebApp.Dto
         public int RoomNumber_FK { get; set; }
 
         [Required]
-        [StringLength(16, MinimumLength = 16, ErrorMessage = "Il Codice Fiscale deve essere lungo 16 caratteri.")]
         public string FiscalCode_FK { get; set; }
 
         [Required]

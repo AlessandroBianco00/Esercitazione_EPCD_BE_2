@@ -1,0 +1,89 @@
+﻿@using HotelWebApp.Models;
+@model ServiceAddition;
+
+@{
+    ViewData["Title"] = "Add Service";
+}
+
+<h1 class="text-center fw-bold">Aggiungi un servizio alla prenotazione</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="AddReservation">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Aggiungi Prenotazione</p>
+                <p class="message-FPA"></p>
+                <label class="label-FPA">
+                    <label asp-for="ServiceId" class="control-label"></label>
+                    <select asp-for="ServiceId" class="form-select input-FPA" id="select-service">
+                    </select>
+                    <span asp-validation-for="ServiceId" class="text-danger"></span>
+                </label>
+
+                <div class="flex-FPA">
+                    <label class="label-FPA">
+                        <input asp-for="Description" class="input-FPA" type="date" placeholder="" required="" disabled>
+                        <span>Description</span>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </label>
+
+                    <label class="label-FPA">
+                        <input asp-for="Price" class="input-FPA" type="date" placeholder="" required="" disabled>
+                        <span>Price per unit</span>
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </label>
+                </div>
+
+                <label class="label-FPA">
+                    <input asp-for="Quantity" class="input-FPA" type="number" placeholder="" required="">
+                    <span>Quantity</span>
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="Date" class="input-FPA" type="number" placeholder="" required="">
+                    <span>Date</span>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </label>
+
+                label class="label-FPA">
+                <label asp-for="ReservationId_FK" class="control-label"></label>
+                <select asp-for="ReservationId_FK" class="form-select input-FPA" id="select-reservation">
+                </select>
+                <span asp-validation-for="ReservationId_FK" class="text-danger"></span>
+                </label>
+
+                <input type="submit" value="Registra" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function getReservations() {
+            $.ajax({
+                url: '@Url.Action("AllReservations", "ReservationApi")',
+                method: 'get',
+                success: (data) => {
+                    let selectReservation = $("#select-reservation")
+                    selectReservation.empty()
+                    $(data).each((_, reservation) => {
+                        console.log(reservation)
+                        let option = $('<option>').val(reservation.reservationId).text(`Prenotazione n°${reservation.reservationId}`);
+                        option.appendTo(selectRoom)
+                    })
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        getReservations();
+    </script>
+}
