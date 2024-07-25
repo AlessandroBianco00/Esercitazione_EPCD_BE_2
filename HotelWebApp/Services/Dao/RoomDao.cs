@@ -35,17 +35,18 @@ namespace HotelWebApp.Services.Dao
             var list = new List<RoomDto>();
             try
             {
-                using var conn = new SqlConnection(connectionString);
+                var conn = new SqlConnection(connectionString);
                 conn.Open();
-                using var cmd = new SqlCommand(SELECT_ALL_COMMAND, conn);
-                using var reader = cmd.ExecuteReader();
+                var cmd = new SqlCommand(SELECT_ALL_COMMAND, conn);
+                var reader = cmd.ExecuteReader();
                 while (reader.Read())
                     list.Add(new RoomDto
                     {
                         RoomNumber = reader.GetInt32(0),
                         Description = reader.GetString(1),
-                        Type = (RoomType)reader.GetChar(2)
+                        Type = reader.GetChar(2)
                     });
+                conn.Close();
                 return list;
             }
             catch (Exception ex)
@@ -67,7 +68,7 @@ namespace HotelWebApp.Services.Dao
                 {
                     RoomNumber = reader.GetInt32(0),
                     Description = reader.GetString(1),
-                    Type = (RoomType)reader.GetChar(2)
+                    Type = reader.GetChar(2)
                 };
                 throw new Exception("Room with id = {roomNumber} not found");
             }

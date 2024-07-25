@@ -3,7 +3,7 @@ using HotelWebApp.Services.Dao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HotelWebApp.Controllers
+namespace HotelWebApp.Controllers.Api
 {
     [Route("api/[controller]")]
     [ApiController]

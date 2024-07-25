@@ -1,0 +1,79 @@
+﻿@using HotelWebApp.Dto;
+@model ReservationDto;
+
+@{
+    ViewData["Title"] = "Add Reservation";
+    List<RoomDto> rooms = ViewBag.Rooms;
+    List<CustomerDto> customers = ViewBag.Customers;
+}
+
+<h1 class="text-center fw-bold">Registra nuovo trasgressore</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <form class="form-FPA" asp-action="AddReservation">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <p class="title-FPA">Aggiungi Prenotazione</p>
+                <p class="message-FPA"></p>
+                <div class="flex-FPA">
+                    <label class="label-FPA">
+                        <input asp-for="CheckInDate" class="input-FPA" type="date" placeholder="" required="">
+                        <span>CheckInDate</span>
+                        <span asp-validation-for="CheckInDate" class="text-danger"></span>
+                    </label>
+
+                    <label class="label-FPA">
+                        <input asp-for="CheckOutDate" class="input-FPA" type="date" placeholder="" required="">
+                        <span>CheckOutDate</span>
+                        <span asp-validation-for="CheckOutDate" class="text-danger"></span>
+                    </label>
+                </div>
+
+                <label class="label-FPA">
+                    <input asp-for="Deposit" class="input-FPA" type="number" placeholder="" required="">
+                    <span>Deposit</span>
+                    <span asp-validation-for="Deposit" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <input asp-for="DailyCost" class="input-FPA" type="number" placeholder="" required="">
+                    <span>DailyCost</span>
+                    <span asp-validation-for="DailyCost" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <label asp-for="RoomNumber_FK" class="control-label"></label>
+                    <select asp-for="RoomNumber_FK" class="form-select input-FPA">
+                        @foreach (var r in rooms)
+                        {
+                            <option value="@r.RoomNumber">Stanza n°@r.RoomNumber</option>
+                        }
+                    </select>
+                    <span asp-validation-for="RoomNumber_FK" class="text-danger"></span>
+                </label>
+
+                <label class="label-FPA">
+                    <label asp-for="FiscalCode_FK" class="control-label"></label>
+                    <select asp-for="FiscalCode_FK" class="form-select input-FPA">
+                        @foreach (var c in customers)
+                        {
+                            <option value="@c.FiscalCode">@c.FirstName @c.LastName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="FiscalCode_FK" class="text-danger"></span>
+                </label>
+                
+                <input type="submit" value="Registra" class="btn btn-primary submit-FPA fw-bold" />
+                <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

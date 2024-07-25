@@ -1,0 +1,72 @@
+﻿@{
+    ViewData["Title"] = "All Reservations";
+}
+
+<h6>Lista prenotazioni registrati</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ReservationId</th>
+            <th>BookingDate</th>
+            <th>CheckInDate</th>
+            <th>CheckOutDate</th>
+            <th>Deposit</th>
+            <th>DailyCost</th>
+            <th>RoomNumber_FK</th>
+            <th>FiscalCode_FK</th>
+            <th>Type</th>
+            <th>Year</th>
+            <th>YearProgressiveNumber</th>
+        </tr>
+    </thead>
+    <tbody id="reservation-table">
+    </tbody>
+</table>
+
+@section Scripts {
+
+    <script>
+        function getReservations() {
+            $.ajax({
+                url: '@Url.Action("AllReservations", "ReservationApi")',
+                method: 'get',
+                success: (data) => {
+                    let tbody = $("#reservation-table")
+                    tbody.empty()
+                    $(data).each((_, reservation) => {
+                        console.log(reservation)
+                        let trow = $('<tr>')
+                        let td1 = $('<td>').text(`${reservation.reservationId}`)
+                        let td2 = $('<td>').text(`${reservation.bookingDate}`)
+                        let td3 = $('<td>').text(`${reservation.checkInDate}`)
+                        let td4 = $('<td>').text(`${reservation.checkOutDate}`)
+                        let td5 = $('<td>').text(`${reservation.deposit}`)
+                        let td6 = $('<td>').text(`${reservation.dailyCost}`)
+                        let td7 = $('<td>').text(`${reservation.roomNumber_FK}`)
+                        let td8 = $('<td>').text(`${reservation.fiscalCode_FK}`)
+                        let td9 = $('<td>').text(`${reservation.type}`)
+                        let td10 = $('<td>').text(`${reservation.year}`)
+                        let td11 = $('<td>').text(`${reservation.yearProgressiveNumber}`)
+                        td1.appendTo(trow)
+                        td2.appendTo(trow)
+                        td3.appendTo(trow)
+                        td4.appendTo(trow)
+                        td5.appendTo(trow)
+                        td6.appendTo(trow)
+                        td7.appendTo(trow)
+                        td8.appendTo(trow)
+                        td9.appendTo(trow)
+                        td10.appendTo(trow)
+                        td11.appendTo(trow)
+                        trow.appendTo(tbody)
+
+                    })
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        getReservations();
+    </script>
+}
