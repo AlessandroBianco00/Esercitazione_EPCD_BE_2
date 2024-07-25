@@ -34,5 +34,11 @@ namespace HotelWebApp.Controllers
             _dbContext.Reservation.AddReservation(reservation);
             return RedirectToAction(nameof(AllReservations));
         }
+
+        public IActionResult AllRooms()
+        {
+            var rooms = _dbContext.Room.GetAllRooms();
+            return View(rooms);
+        }
     }
 }

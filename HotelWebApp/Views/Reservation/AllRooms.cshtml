@@ -1,0 +1,31 @@
+﻿@using HotelWebApp.Dto;
+@model List<RoomDto>;
+
+@{
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>DataViolazione</th>
+            <th>IndirizzoViolazione</th>
+            <th>Nominativo agente</th>
+            <th>DataTrascrizioneVerbale</th>
+            <th>Importo</th>
+            <th>DecurtamentoPunti</th>
+            <th>IdAnagrafico</th>
+            <th>IdViolazione</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var verbale in Model)
+        {
+            <tr>
+                <td>@verbale.RoomNumber</td>
+                <td>@verbale.Description</td>
+                <td>@verbale.Type</td>
+            </tr>
+        }
+    </tbody>
+</table>

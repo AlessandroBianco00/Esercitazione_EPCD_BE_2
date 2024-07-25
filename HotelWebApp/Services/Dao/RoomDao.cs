@@ -40,12 +40,14 @@ namespace HotelWebApp.Services.Dao
                 var cmd = new SqlCommand(SELECT_ALL_COMMAND, conn);
                 var reader = cmd.ExecuteReader();
                 while (reader.Read())
+                {
                     list.Add(new RoomDto
                     {
                         RoomNumber = reader.GetInt32(0),
                         Description = reader.GetString(1),
-                        Type = reader.GetChar(2)
+                        Type = reader.GetString(2)[0]
                     });
+                }
                 conn.Close();
                 return list;
             }
