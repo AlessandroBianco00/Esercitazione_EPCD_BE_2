@@ -1,4 +1,5 @@
 ﻿using HotelWebApp.Dto;
+using HotelWebApp.Models;
 
 namespace HotelWebApp.Interfaces
 {
@@ -6,5 +7,7 @@ namespace HotelWebApp.Interfaces
     {
         List<ReservationDto> GetReservationByFC(string fc);
         List<ReservationDto> GetReservationFullBoard();
+        ReservationDto GetReservationCheckOut(int id);
+        List<ServiceAddition> GetServicesCheckOut(int id);
     }
 }

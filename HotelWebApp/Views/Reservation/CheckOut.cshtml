@@ -1,0 +1,57 @@
+﻿@model CheckOutModel;
+
+@{
+    ViewData["Title"] = "CheckOut";
+    var days = (int)(Model.CheckOutDate - Model.CheckInDate).TotalDays;
+    var roomCost = days * Model.DailyCost;
+    decimal servicesCost = 0;
+    foreach (var s in Model.ServiceAdditionList)
+    {
+        servicesCost = (decimal)s.Quantity * s.Price;
+    }
+    var totalCost = roomCost - Model.Deposit + servicesCost;
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ReservationId</th>
+            <th>RoomNumber_FK</th>
+            <th>CheckInDate</th>
+            <th>CheckOutDate</th>
+            <th>Deposit</th>
+            <th>DailyCost</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.ReservationId</td>
+            <td>@Model.RoomNumber_FK</td>
+            <td>@Model.CheckInDate.ToString("dd/MM/yyyy")</td>
+            <td>@Model.CheckOutDate.ToString("dd/MM/yyyy")</td>
+            <td>@Model.Deposit</td>
+            <td>@Model.DailyCost</td>
+        </tr>
+    </tbody>
+</table>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Description</th>
+            <th>TotalQuantity</th>
+            <th>CostPerUnit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var s in Model.ServiceAdditionList)
+            {
+                <td>@s.Description</td>
+                <td>@s.Quantity</td>
+                <td>@s.Price &euro;</td>
+            }
+        </tr>
+    </tbody>
+</table>
+<p class="fw-bold">Il totale è di @totalCost &euro;</p>
+<p class="d-none">Il calcolo è @days * @Model.DailyCost - @Model.Deposit + @servicesCost </p>

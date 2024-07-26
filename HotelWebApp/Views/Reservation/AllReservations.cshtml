@@ -18,6 +18,7 @@
             <th>Type</th>
             <th>Year</th>
             <th>YearProgressiveNumber</th>
+            <th></th>
         </tr>
     </thead>
     <tbody id="reservation-table">
@@ -57,6 +58,7 @@
                         let td9 = $('<td>').text(reservationTypeMap(reservation.type));
                         let td10 = $('<td>').text(`${reservation.year}`)
                         let td11 = $('<td>').text(`${reservation.yearProgressiveNumber}`)
+                        let td12 = $('<td>').html(`<a class="btn btn-primary" href="/Reservation/CheckOut?id=${reservation.reservationId}">CheckOut</a>`);
                         td1.appendTo(trow)
                         td2.appendTo(trow)
                         td3.appendTo(trow)
@@ -68,6 +70,7 @@
                         td9.appendTo(trow)
                         td10.appendTo(trow)
                         td11.appendTo(trow)
+                        td12.appendTo(trow)
                         trow.appendTo(tbody)
 
                     })
