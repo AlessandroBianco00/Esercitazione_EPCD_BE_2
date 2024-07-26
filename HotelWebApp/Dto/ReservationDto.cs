@@ -4,9 +4,9 @@ namespace HotelWebApp.Dto
 {
     public enum ReservationType
     {
-        HalfBoard = '1',        
-        FullBoard = '2',        
-        BedAndBreakfast = '3'   
+        HalfBoard = 1,        
+        FullBoard = 2,        
+        BedAndBreakfast = 3   
     }
     public class ReservationDto
     {

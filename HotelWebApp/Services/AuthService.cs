@@ -31,7 +31,8 @@ namespace HotelWebApp.Services
                 conn.Open();
                 using var cmd = new SqlCommand(LOGIN_COMMAND, conn);
                 cmd.Parameters.AddWithValue("@username", username);
-                cmd.Parameters.AddWithValue("@password", password);
+                var encodedPassword = _passwordEncoder.Encode(password);
+                cmd.Parameters.AddWithValue("@password", encodedPassword);
                 using var r = cmd.ExecuteReader();
                 if (r.Read())
                 {

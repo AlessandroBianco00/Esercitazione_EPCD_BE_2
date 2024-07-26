@@ -27,6 +27,15 @@
 @section Scripts {
 
     <script>
+        function reservationTypeMap(type) {
+            const types = {
+                1: 'HalfBoard',
+                2: 'FullBoard',
+                3: 'BedAndBreakfast'
+            };
+            return types[type] || 'Unknown';
+        }
+
         function getReservations() {
             $.ajax({
                 url: '@Url.Action("AllReservations", "ReservationApi")',
@@ -45,7 +54,7 @@
                         let td6 = $('<td>').text(`${reservation.dailyCost}`)
                         let td7 = $('<td>').text(`${reservation.roomNumber_FK}`)
                         let td8 = $('<td>').text(`${reservation.fiscalCode_FK}`)
-                        let td9 = $('<td>').text(`${reservation.type}`)
+                        let td9 = $('<td>').text(reservationTypeMap(reservation.type));
                         let td10 = $('<td>').text(`${reservation.year}`)
                         let td11 = $('<td>').text(`${reservation.yearProgressiveNumber}`)
                         td1.appendTo(trow)

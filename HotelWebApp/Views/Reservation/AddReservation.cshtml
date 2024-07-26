@@ -60,6 +60,16 @@
                     </select>
                     <span asp-validation-for="FiscalCode_FK" class="text-danger"></span>
                 </label>
+
+                <label class="label-FPA">
+                    <label asp-for="Type" class="control-label"></label>
+                    <select asp-for="Type" class="form-select input-FPA">
+                        <option value="1">Mezza pensione</option>
+                        <option value="2">Pensione completa</option>
+                        <option value="3">Pernottamento con prima colazione</option>
+                    </select>
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </label>
                 
                 <input type="submit" value="Registra" class="btn btn-primary submit-FPA fw-bold" />
                 <button type="button" asp-action="Index" class="btn btn-secondary fw-bold border-button">Torna alla home</button>

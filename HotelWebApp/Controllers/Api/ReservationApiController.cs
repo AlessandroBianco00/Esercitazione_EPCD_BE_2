@@ -16,6 +16,14 @@ namespace HotelWebApp.Controllers.Api
             _dbContext = dbContext;
         }
 
+        [HttpGet]
+        public ActionResult<IEnumerable<ReservationDto>> AllReservations()
+        {
+            var reservations = _dbContext.Reservation.GetAllReservations();
+            return Ok(reservations);
+        }
+
+        [HttpGet("{cf}")]
         public ActionResult<IEnumerable<CustomerDto>> AllReservations()
         {
             var reservations = _dbContext.Reservation.GetAllReservations();

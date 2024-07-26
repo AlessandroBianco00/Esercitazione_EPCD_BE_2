@@ -63,7 +63,7 @@ namespace HotelWebApp.Services.Dao
                         DailyCost = reader.GetDecimal(5),
                         RoomNumber_FK = reader.GetInt32(6),
                         FiscalCode_FK = reader.GetString(7),
-                        Type = (ReservationType)reader.GetString(8)[0],
+                        Type = (ReservationType)reader.GetInt32(8),
                         Year = reader.GetInt32(9),
                         YearProgressiveNumber = reader.GetInt32(10)
                     });
@@ -94,7 +94,7 @@ namespace HotelWebApp.Services.Dao
                     DailyCost = reader.GetDecimal(5),
                     RoomNumber_FK = reader.GetInt32(6),
                     FiscalCode_FK = reader.GetString(7),
-                    Type = (ReservationType)reader.GetChar(8),
+                    Type = (ReservationType)reader.GetInt32(8),
                     Year = reader.GetInt32(9),
                     YearProgressiveNumber = reader.GetInt32(10)
                 };
