@@ -32,6 +32,15 @@ body {
     border-radius: 100%
 }
 
+.index-title {
+    background-image: url('https://jooinn.com/images/ceramic-texture-2.jpg');
+    border-radius: 10px;
+}
+
+.testo-medio {
+    font-size: 1.7em;
+}
+
 /* AuthPage */
 
 .cookieCard {
