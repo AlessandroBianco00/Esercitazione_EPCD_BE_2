@@ -10,17 +10,17 @@ namespace HotelWebApp.Services.Dao
 
         private const string INSERT_COMMAND = "INSERT INTO [Services]([Description], Price) VALUES( @description, @price)";
         private const string SELECT_ALL_COMMAND = "SELECT ServiceId, [Description], Price FROM [Services]";
-        private const string SELECT_BY_ID_COMMAND = "SELECT ServiceId, [Description], Price FROM [Services] ServiceId = @serviceId";
+        private const string SELECT_BY_ID_COMMAND = "SELECT ServiceId, [Description], Price FROM [Services] WHERE ServiceId = @serviceId";
 
-        public void AddService(ServiceDto customer)
+        public void AddService(ServiceDto service)
         {
             try
             {
                 using var conn = new SqlConnection(connectionString);
                 conn.Open();
                 using var cmd = new SqlCommand(INSERT_COMMAND, conn);
-                cmd.Parameters.Add(new SqlParameter("@description", customer.Description));
-                cmd.Parameters.Add(new SqlParameter("@type", customer.Price));
+                cmd.Parameters.Add(new SqlParameter("@description", service.Description));
+                cmd.Parameters.Add(new SqlParameter("@type", service.Price));
                 var result = cmd.ExecuteNonQuery();
                 if (result != 1) throw new Exception("Inserimento fallito");
             }
@@ -69,7 +69,7 @@ namespace HotelWebApp.Services.Dao
                     Description = reader.GetString(1),
                     Price = reader.GetDecimal(2)
                 };
-                throw new Exception("Room with id = {roomNumber} not found");
+                throw new Exception("service with id = {serviceId} not found");
             }
             catch (Exception ex)
             {

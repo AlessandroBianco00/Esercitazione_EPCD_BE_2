@@ -10,6 +10,7 @@ namespace HotelWebApp
             return services
                 .AddScoped<ICustomerDao, CustomerDao>()
                 .AddScoped<IReservationDao, ReservationDao>()
+                .AddScoped<IReservationService, ReservationServiceDao>()
                 .AddScoped<IRoomDao, RoomDao>()
                 .AddScoped<IServiceDao, ServiceDao>()
                 ;

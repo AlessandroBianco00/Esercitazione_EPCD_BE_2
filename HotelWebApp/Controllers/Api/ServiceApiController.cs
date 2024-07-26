@@ -23,8 +23,8 @@ namespace HotelWebApp.Controllers.Api
             return Ok(services);
         }
 
-        [HttpGet("/id")]
-        public IActionResult ServiceById([FromBody] int id)
+        [HttpGet("{id}")] // GET /api/serviceapi/10
+        public IActionResult ServiceById([FromRoute] int id)
         {
             var service = _dbContext.Service.GetServiceById(id);
             return Ok(service);

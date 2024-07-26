@@ -14,6 +14,7 @@ namespace HotelWebApp.Models
         public decimal Price { get; set; }
 
         [Required]
+        [Range(0, 10)]
         public int Quantity { get; set; }
 
         [Required]

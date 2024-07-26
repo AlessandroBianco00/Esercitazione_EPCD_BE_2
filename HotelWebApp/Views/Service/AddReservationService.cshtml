@@ -2,7 +2,7 @@
 @model ServiceAddition;
 
 @{
-    ViewData["Title"] = "Add Service";
+    ViewData["Title"] = "Add ReservationService";
 }
 
 <h1 class="text-center fw-bold">Aggiungi un servizio alla prenotazione</h1>
@@ -10,7 +10,7 @@
 <div class="container">
     <div class="row">
         <div class="col d-flex justify-content-center">
-            <form class="form-FPA" asp-action="AddReservation">
+            <form class="form-FPA" asp-action="AddReservationService">
                 @Html.AntiForgeryToken()
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <p class="title-FPA">Aggiungi Prenotazione</p>
@@ -89,9 +89,8 @@
             console.log(1)
             let servizio = $("#select-service").val();
             $.ajax({
-                url: 'api/serviceapi/id', //errore in api
+                url: '/api/serviceapi/' + `${servizio}`,
                 method: 'get',
-                data: { 'serviceId': `${servizio}` },
                 success: (data) => {
                     console.log(2)
                     console.log(data);

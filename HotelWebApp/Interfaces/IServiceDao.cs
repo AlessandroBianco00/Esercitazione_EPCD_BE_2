@@ -4,7 +4,7 @@ namespace HotelWebApp.Interfaces
 {
     public interface IServiceDao
     {
-        void AddService(ServiceDto customer);
+        void AddService(ServiceDto service);
         ServiceDto GetServiceById(int id);
         List<ServiceDto> GetAllServices();
     }
