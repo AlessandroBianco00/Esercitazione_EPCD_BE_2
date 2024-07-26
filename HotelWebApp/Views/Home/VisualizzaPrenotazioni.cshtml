@@ -1,8 +1,123 @@
 ﻿@{
     ViewData["Title"] = "Visualizza Prenotazioni";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="fw-bold">@ViewData["Title"]</h1>
 
-<p>Ricercare le prenotazioni effettuate da un cliente in base al codice fiscale</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <p class="fw-bold">Ricercare le prenotazioni effettuate da un cliente in base al codice fiscale</p>
 
-<p>Ricercare il numero totale di prenotazioni per i soggiorni di tipo “pensione completa”</p>
+            <form class="card-login__form">
+                <input type="text" id="fc-input" />
+                <button onclick="getReservationByFC()" type="button" class="sign-up-login">Cerca prenotazioni</button>
+            </form>
+
+            <div id="query-cf"></div>
+        </div>
+        <div class="col-12 mt-5">
+            <p class="fw-bold">Ricercare il numero totale di prenotazioni per i soggiorni di tipo “pensione completa”</p>
+            <button onclick="getReservationHalfBoard()" class="query-button">Cerca pensione completa</button>
+            <div id="query-pension"></div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        function reservationTypeMap(type) {
+            const types = {
+                1: 'HalfBoard',
+                2: 'FullBoard',
+                3: 'BedAndBreakfast'
+            };
+            return types[type] || 'Unknown';
+        }
+
+        function getReservationByFC() {
+            let fiscalCode = $("#fc-input").val();
+            $.ajax({
+                url: '/api/reservationapi/' + `${fiscalCode}`,
+                method: 'get',
+                success: (data) => {
+                    let fiscalCodeList = $("#query-cf")
+                    fiscalCodeList.empty()
+                    console.log(data)
+                    $(data).each((_, reservation) => {
+                        console.log(reservation)
+                        let p1 = $('<p>').text(`Id : ${reservation.reservationId}`)
+                        let p2 = $('<p>').text(new Date(reservation.bookingDate).toLocaleDateString());
+                        let p3 = $('<p>').text(new Date(reservation.checkInDate).toLocaleDateString());
+                        let p4 = $('<p>').text(new Date(reservation.checkOutDate).toLocaleDateString());
+                        let p5 = $('<p>').text(`Deposit : ${reservation.deposit}`)
+                        let p6 = $('<p>').text(`Daily cost : ${reservation.dailyCost}`)
+                        let p7 = $('<p>').text(`Room number : ${reservation.roomNumber_FK}`)
+                        let p8 = $('<p>').text(`Fiscal code : ${reservation.fiscalCode_FK}`)
+                        let p9 = $('<p>').text(reservationTypeMap(reservation.type));
+                        let p10 = $('<p>').text(`Year : ${reservation.year}`)
+                        let p11 = $('<p>').text(`YearProgressiceNumber : ${reservation.yearProgressiveNumber}`)
+                        let hr = $('<hr>')
+                        p1.appendTo(fiscalCodeList)
+                        p2.appendTo(fiscalCodeList)
+                        p3.appendTo(fiscalCodeList)
+                        p4.appendTo(fiscalCodeList)
+                        p5.appendTo(fiscalCodeList)
+                        p6.appendTo(fiscalCodeList)
+                        p7.appendTo(fiscalCodeList)
+                        p8.appendTo(fiscalCodeList)
+                        p9.appendTo(fiscalCodeList)
+                        p10.appendTo(fiscalCodeList)
+                        p11.appendTo(fiscalCodeList)
+                        hr.appendTo(fiscalCodeList)
+                    })
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        function getReservationHalfBoard() {
+            $.ajax({
+                url: '/api/reservationapi/halfboard',
+                method: 'get',
+                success: (data) => {
+                    let pensionList = $("#query-pension")
+                    pensionList.empty()
+                    console.log(data)
+                    $(data).each((_, reservation) => {
+                        console.log(reservation)
+                        let p1 = $('<p>').text(`Id : ${reservation.reservationId}`)
+                        let p2 = $('<p>').text(new Date(reservation.bookingDate).toLocaleDateString());
+                        let p3 = $('<p>').text(new Date(reservation.checkInDate).toLocaleDateString());
+                        let p4 = $('<p>').text(new Date(reservation.checkOutDate).toLocaleDateString());
+                        let p5 = $('<p>').text(`Deposit : ${reservation.deposit}`)
+                        let p6 = $('<p>').text(`Daily cost : ${reservation.dailyCost}`)
+                        let p7 = $('<p>').text(`Room number : ${reservation.roomNumber_FK}`)
+                        let p8 = $('<p>').text(`Fiscal code : ${reservation.fiscalCode_FK}`)
+                        let p9 = $('<p>').text(reservationTypeMap(reservation.type));
+                        let p10 = $('<p>').text(`Year : ${reservation.year}`)
+                        let p11 = $('<p>').text(`YearProgressiceNumber : ${reservation.yearProgressiveNumber}`)
+                        let hr = $('<hr>')
+                        p1.appendTo(pensionList)
+                        p2.appendTo(pensionList)
+                        p3.appendTo(pensionList)
+                        p4.appendTo(pensionList)
+                        p5.appendTo(pensionList)
+                        p6.appendTo(pensionList)
+                        p7.appendTo(pensionList)
+                        p8.appendTo(pensionList)
+                        p9.appendTo(pensionList)
+                        p10.appendTo(pensionList)
+                        p11.appendTo(pensionList)
+                        hr.appendTo(pensionList)
+                    })
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+    </script>
+}

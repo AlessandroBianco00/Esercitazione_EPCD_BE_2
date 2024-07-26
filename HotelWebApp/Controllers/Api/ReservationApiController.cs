@@ -1,4 +1,5 @@
 ﻿using HotelWebApp.Dto;
+using HotelWebApp.Interfaces;
 using HotelWebApp.Services.Dao;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,12 @@ namespace HotelWebApp.Controllers.Api
     public class ReservationApiController : ControllerBase
     {
         private readonly DbContext _dbContext;
+        private readonly IReservationQueryService _reservationQueryService;
 
-        public ReservationApiController(DbContext dbContext)
+        public ReservationApiController(DbContext dbContext, IReservationQueryService reservationQueryService)
         {
             _dbContext = dbContext;
+            _reservationQueryService = reservationQueryService;
         }
 
         [HttpGet]
@@ -24,9 +27,16 @@ namespace HotelWebApp.Controllers.Api
         }
 
         [HttpGet("{cf}")]
-        public ActionResult<IEnumerable<CustomerDto>> AllReservations()
+        public ActionResult<IEnumerable<ReservationDto>> ReservationByFC([FromRoute] string cf)
         {
-            var reservations = _dbContext.Reservation.GetAllReservations();
+            var reservations = _reservationQueryService.GetReservationByFC(cf);
+            return Ok(reservations);
+        }
+
+        [HttpGet("halfboard")]
+        public ActionResult<IEnumerable<ReservationDto>> HalfBoardReservation()
+        {
+            var reservations = _reservationQueryService.GetReservationFullBoard();
             return Ok(reservations);
         }
     }

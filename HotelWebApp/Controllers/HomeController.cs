@@ -20,7 +20,7 @@ namespace HotelWebApp.Controllers
         }
 
         [Authorize]
-        public IActionResult Privacy()
+        public IActionResult VisualizzaPrenotazioni()
         {
             return View();
         }

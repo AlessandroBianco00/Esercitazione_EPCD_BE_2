@@ -1,8 +1,10 @@
-﻿namespace HotelWebApp.Interfaces
+﻿using HotelWebApp.Dto;
+
+namespace HotelWebApp.Interfaces
 {
     public interface IReservationQueryService
     {
-        List<IReservationDao> GetReservationByFC(string fc);
-        List<IReservationDao> GetReservationFullBoard(int roomtype);
+        List<ReservationDto> GetReservationByFC(string fc);
+        List<ReservationDto> GetReservationFullBoard();
     }
 }

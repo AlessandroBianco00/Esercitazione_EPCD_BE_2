@@ -28,6 +28,7 @@ builder.Services
     .RegisterDAOs()
     .AddScoped<DbContext>()
     .AddScoped<IAuthService, AuthService>()
+    .AddScoped<IReservationQueryService, ReservationQueryService>()
     .AddScoped<IPasswordEncoder, PasswordEncoder>();
 
 var app = builder.Build();

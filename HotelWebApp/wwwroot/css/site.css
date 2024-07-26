@@ -132,7 +132,7 @@ body {
   color: black;
 }
 
-.card-login__form button {
+.card-login__form button, .query-button {
   border: 0;
   background: #111;
   color: #fff;
