@@ -2,10 +2,12 @@
 using HotelWebApp.Interfaces;
 using HotelWebApp.Models;
 using HotelWebApp.Services.Dao;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelWebApp.Controllers
 {
+    [Authorize(Policy = Policies.IsAdmin)]
     public class ReservationController : Controller
     {
         private readonly DbContext _dbContext;

@@ -113,7 +113,7 @@ namespace HotelWebApp.Services
             {
                 using var conn = new SqlConnection(connectionString);
                 conn.Open();
-                using var cmd = new SqlCommand(SELECT_FULLBOARD_COMMAND, conn);
+                using var cmd = new SqlCommand(SERVICES_CHECKOUT_COMMAND, conn);
                 cmd.Parameters.AddWithValue("@reservationId", id);
                 using var reader = cmd.ExecuteReader();
                 while (reader.Read())

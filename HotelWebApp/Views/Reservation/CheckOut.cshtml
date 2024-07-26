@@ -43,14 +43,16 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            @foreach (var s in Model.ServiceAdditionList)
-            {
+
+        @foreach (var s in Model.ServiceAdditionList)
+        {
+            <tr>
                 <td>@s.Description</td>
                 <td>@s.Quantity</td>
                 <td>@s.Price &euro;</td>
-            }
-        </tr>
+            </tr>
+        }
+
     </tbody>
 </table>
 <p class="fw-bold">Il totale è di @totalCost &euro;</p>

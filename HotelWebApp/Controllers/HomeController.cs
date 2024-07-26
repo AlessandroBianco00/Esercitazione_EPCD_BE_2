@@ -5,6 +5,7 @@ using System.Diagnostics;
 
 namespace HotelWebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
@@ -14,6 +15,7 @@ namespace HotelWebApp.Controllers
             _logger = logger;
         }
 
+        [AllowAnonymous]
         public IActionResult Index()
         {
             return View();

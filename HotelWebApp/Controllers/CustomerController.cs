@@ -1,9 +1,11 @@
 ﻿using HotelWebApp.Dto;
 using HotelWebApp.Services.Dao;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HotelWebApp.Controllers
 {
+    [Authorize(Policy = Policies.IsAdmin)]
     public class CustomerController : Controller
     {
         private readonly DbContext _dbContext;
