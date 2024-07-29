@@ -3,10 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PizzeriaWebApp.Models
 {
-    public class OrderProduct
+    public class OrderItem
     {
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int OrderProductId { get; set; }
+        public int OrderItemId { get; set; }
 
         public int OrderId { get; set; }
 

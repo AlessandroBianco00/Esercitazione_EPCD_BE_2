@@ -17,7 +17,7 @@ namespace PizzeriaWebApp.Models
         public string ProductImage { get; set; }
         [Required]
         public int DeliveryMinutes { get; set; }
-        public List<Order> Orders { get; set; }
+        public List<OrderItem> Orders { get; set; }
         public List<Ingredient> Ingredients { get; set; }
     }
 }

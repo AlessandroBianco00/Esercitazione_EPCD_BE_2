@@ -23,6 +23,6 @@ namespace PizzeriaWebApp.Models
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
-        public List<Product> Products { get; set; }
+        public List<OrderItem> Products { get; set; }
     }
 }
