@@ -1,10 +1,16 @@
 using Microsoft.EntityFrameworkCore;
 using PizzeriaWebApp.Context;
+using PizzeriaWebApp.Interfaces;
+using PizzeriaWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services
+    .AddScoped<IProductService, ProductService>()
+    ;
 
 var conn = builder.Configuration.GetConnectionString("PizzaApp")!;
 builder.Services

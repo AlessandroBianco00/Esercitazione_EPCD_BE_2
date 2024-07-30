@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PizzeriaWebApp.Models;
+using PizzeriaWebApp.Models.Entities;
 
 namespace PizzeriaWebApp.Context
 {
