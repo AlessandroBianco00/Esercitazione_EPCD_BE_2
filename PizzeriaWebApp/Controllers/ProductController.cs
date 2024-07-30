@@ -37,5 +37,10 @@ namespace PizzeriaWebApp.Controllers
             }
             return View(model);
         }
+
+        public IActionResult AllProducts()
+        {
+            return View();
+        }
     }
 }

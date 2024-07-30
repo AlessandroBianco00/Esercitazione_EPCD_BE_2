@@ -7,5 +7,6 @@ namespace PizzeriaWebApp.Interfaces
     {
         public string ConvertImage(IFormFile file);
         public Task<Product> CreateProduct(ProductViewModel model);
+        public Task<IEnumerable<Product>> GetAll();
     }
 }

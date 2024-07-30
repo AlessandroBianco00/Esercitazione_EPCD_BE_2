@@ -1,4 +1,5 @@
-﻿using PizzeriaWebApp.Context;
+﻿using Microsoft.EntityFrameworkCore;
+using PizzeriaWebApp.Context;
 using PizzeriaWebApp.Controllers;
 using PizzeriaWebApp.Interfaces;
 using PizzeriaWebApp.Models.Entities;
@@ -21,6 +22,7 @@ namespace PizzeriaWebApp.Services
                 file.CopyTo(memoryStream);
                 byte[] fileBytes = memoryStream.ToArray();
                 string base64String = Convert.ToBase64String(fileBytes);
+
                 return base64String;
             }
         }
@@ -37,6 +39,12 @@ namespace PizzeriaWebApp.Services
             _ctx.Products.Add(product);
             await _ctx.SaveChangesAsync();
             return product;
+        }
+
+        public async Task<IEnumerable<Product>> GetAll()
+        {
+            var list = await _ctx.Products.ToListAsync();
+            return list;
         }
 
     }
