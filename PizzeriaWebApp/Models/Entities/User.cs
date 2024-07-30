@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Data;
 
-namespace PizzeriaWebApp.Models
+namespace PizzeriaWebApp.Models.Entities
 {
     public class User
     {
