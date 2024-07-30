@@ -22,20 +22,27 @@ namespace PizzeriaWebApp.Services
                 file.CopyTo(memoryStream);
                 byte[] fileBytes = memoryStream.ToArray();
                 string base64String = Convert.ToBase64String(fileBytes);
+                string urlImg = $"data:image/jpeg;base64,{base64String}";
 
-                return base64String;
+                return urlImg;
             }
         }
 
-        public async Task<Product> CreateProduct(ProductViewModel model)
+        public async Task<Product> CreateProduct(ProductViewModel model, IEnumerable<int> ingrIds)
         {
+            var ingredients = await _ctx.Ingredients
+                   .Where(i => ingrIds.Contains(i.IngredientId))
+                   .ToListAsync();
+
             var product = new Product
             {
                 ProductName = model.ProductName!,
                 ProductImage = ConvertImage(model.ProductImage),
                 Price = model.Price!,
-                DeliveryMinutes = model.DeliveryMinutes!
+                DeliveryMinutes = model.DeliveryMinutes!,
+                Ingredients = ingredients
             };
+
             _ctx.Products.Add(product);
             await _ctx.SaveChangesAsync();
             return product;
@@ -43,7 +50,7 @@ namespace PizzeriaWebApp.Services
 
         public async Task<IEnumerable<Product>> GetAll()
         {
-            var list = await _ctx.Products.ToListAsync();
+            var list = await _ctx.Products.Include(p => p.Ingredients).ToListAsync();
             return list;
         }
 

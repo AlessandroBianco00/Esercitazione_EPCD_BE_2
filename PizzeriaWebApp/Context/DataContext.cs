@@ -13,5 +13,15 @@ namespace PizzeriaWebApp.Context
         public virtual DbSet<OrderItem> OrderItems { get; set; }
 
         public DataContext(DbContextOptions<DataContext> opt) : base(opt) { }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Ingredients)
+                .WithMany(i => i.Products)
+                .UsingEntity(j => j.ToTable("IngredientProduct"));
+        }
     }
 }

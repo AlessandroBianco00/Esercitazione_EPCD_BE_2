@@ -10,6 +10,7 @@ builder.Services.AddControllersWithViews();
 
 builder.Services
     .AddScoped<IProductService, ProductService>()
+    .AddScoped<IIngredientService, IngredientService>()
     ;
 
 var conn = builder.Configuration.GetConnectionString("PizzaApp")!;

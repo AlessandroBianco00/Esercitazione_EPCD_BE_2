@@ -17,5 +17,6 @@ namespace PizzeriaWebApp.Models.ViewModels
         [Required]
         [Range(1, 120)]
         public int DeliveryMinutes { get; set; }
+        public List<Ingredient> Ingredients { get; set; }
     }
 }

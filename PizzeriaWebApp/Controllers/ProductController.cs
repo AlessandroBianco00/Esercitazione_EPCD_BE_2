@@ -12,35 +12,39 @@ namespace PizzeriaWebApp.Controllers
     {
         private readonly ILogger<ProductController> _logger;
         private readonly IProductService _productService;
+        private readonly IIngredientService _ingredientService;
         private readonly DataContext _ctx;
 
-        public ProductController(DataContext dbContext, ILogger<ProductController> logger, IProductService productService)
+        public ProductController(DataContext dbContext, ILogger<ProductController> logger, IProductService productService, IIngredientService ingredientService)
         {
             _logger = logger;
             _ctx = dbContext;
             _productService = productService;
+            _ingredientService = ingredientService;
         }
 
-        public IActionResult AddProduct()
+        public async Task<IActionResult> AddProduct()
         {
+            ViewBag.Ingredients = await _ingredientService.GetAll();
             return View();
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddProduct(ProductViewModel model)
+        public async Task<IActionResult> AddProduct(ProductViewModel model, IEnumerable<int> ingredients)
         {
             if (ModelState.IsValid)
             {
-                await _productService.CreateProduct(model);
+                await _productService.CreateProduct(model, ingredients);
                 return RedirectToAction("Index", "Home");
             }
             return View(model);
         }
 
-        public IActionResult AllProducts()
+        public async Task<IActionResult> AllProducts()
         {
-            return View();
+            var list = await _productService.GetAll();
+            return View(list);
         }
     }
 }
