@@ -1,0 +1,38 @@
+﻿@using PizzeriaWebApp.Models.Entities;
+@model IEnumerable<Product>;
+
+@{
+    ViewData["Title"] = "Menu";
+}
+<div class="container">
+    <h1 class="fw-bold">Sfoglia il menù</h1>
+    <div class="row">
+        @if (Model != null)
+        {
+            foreach (var product in Model)
+            {
+                <div class="col-12 col-md-6">
+                    <div class="card">
+                        <img src="@product.ProductImage" class="card-img-top img-card" alt="img @product.ProductName">
+                        <div class="card-body">
+                            <h5 class="card-title">@product.ProductName</h5>
+                            <div class="d-flex justify-content-between">
+                                <p class="card-text">Minuti di preparazione: @product.DeliveryMinutes</p>
+                                <p class="card-text">Prezzo: @product.Price &euro;</p>
+                            </div>
+                            @foreach (var i in product.Ingredients)
+                            {
+                                <p>@i.IngredientName</p>
+                            }
+                            <a asp-action="AddToOrder" asp-route-id="@product.ProductId" class="btn btn-primary">Ordina</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p class="alert alert-warning">Servizio non disponibile, stiamo ristrutturando il menù</p>
+        }
+    </div>
+</div>
