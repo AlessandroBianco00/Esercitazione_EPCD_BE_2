@@ -27,5 +27,12 @@ namespace PizzeriaWebApp.Services
             var list = await _ctx.Ingredients.ToListAsync();
             return list;
         }
+        public async Task<Ingredient> DeleteIngredient(int id)
+        {
+            var ingredient = await _ctx.Ingredients.SingleAsync(i => i.IngredientId == id);
+            _ctx.Ingredients.Remove(ingredient);
+            await _ctx.SaveChangesAsync();
+            return ingredient;
+        }
     }
 }

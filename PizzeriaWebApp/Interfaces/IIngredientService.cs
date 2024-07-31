@@ -6,5 +6,6 @@ namespace PizzeriaWebApp.Interfaces
     {
         public Task<Ingredient> CreateIngredient(Ingredient ingredient);
         public Task<IEnumerable<Ingredient>> GetAll();
+        public Task<Ingredient> DeleteIngredient(int id);
     }
 }

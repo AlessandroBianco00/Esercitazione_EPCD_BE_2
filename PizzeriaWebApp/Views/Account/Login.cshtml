@@ -1,0 +1,23 @@
+﻿@model PizzeriaWebApp.Models.Entities.User
+
+@{
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <div class="card-login">
+                <span class="card-login__title">Subscribe</span>
+                <p class="card-login__content">
+                    Accedi per vedere i dati
+                </p>
+                <form asp-action="Login" class="card-login__form">
+                    <input placeholder="Name" type="text" asp-for="Name">
+                    <input placeholder="Email" type="text" asp-for="Email">
+                    <input placeholder="Password" type="password" asp-for="Password">
+                    <button class="sign-up-login">Log in</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

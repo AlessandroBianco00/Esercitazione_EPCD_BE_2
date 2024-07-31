@@ -22,6 +22,11 @@ namespace PizzeriaWebApp.Context
                 .HasMany(p => p.Ingredients)
                 .WithMany(i => i.Products)
                 .UsingEntity(j => j.ToTable("IngredientProduct"));
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .UsingEntity(j => j.ToTable("RoleUser"));
         }
     }
 }

@@ -1,0 +1,28 @@
+﻿@using PizzeriaWebApp.Models.Entities
+@model IEnumerable<Ingredient>
+
+@{
+    ViewData["Title"] = "All Reservations";
+}
+
+<h6>Lista ingredienti</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id ingrediente</th>
+            <th>Nome ingrediente</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var i in Model)
+        {
+            <tr>
+                <th>@i.IngredientId</th>
+                <th>@i.IngredientName</th>
+                <th><a class="btn btn-danger fw-bold" asp-action="DeleteIngredient" asp-route-id="@i.IngredientId">Delete</a></th>
+            </tr>
+        }
+    </tbody>
+</table>
