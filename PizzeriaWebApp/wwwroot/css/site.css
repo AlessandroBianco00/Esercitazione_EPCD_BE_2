@@ -20,3 +20,127 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* AuthPage */
+
+.cookieCard {
+  width: 300px;
+  height: 200px;
+  background: linear-gradient(to right,rgb(137, 104, 255),rgb(175, 152, 255));
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.cookieCard::before {
+  width: 150px;
+  height: 150px;
+  content: "";
+  background: linear-gradient(to right,rgb(142, 110, 255),rgb(208, 195, 255));
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+  right: -25%;
+  top: -25%;
+}
+
+.cookieHeading {
+  font-size: 1.5em;
+  font-weight: 600;
+  color: rgb(241, 241, 241);
+  z-index: 2;
+}
+
+.cookieDescription {
+  font-size: 0.9em;
+  color: rgb(241, 241, 241);
+  z-index: 2;
+}
+
+.cookieDescription a {
+  color: rgb(241, 241, 241);
+}
+
+.acceptButton {
+  padding: 11px 20px;
+  background-color: #7b57ff;
+  transition-duration: .2s;
+  border: none;
+  color: rgb(241, 241, 241);
+  cursor: pointer;
+  font-weight: 600;
+  z-index: 2;
+}
+
+.acceptButton:hover {
+  background-color: #714aff;
+  transition-duration: .2s;
+}
+
+/* Login (Account) */
+
+.card-login {
+  width: 240px;
+  height: 354px;
+  padding: 0 15px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 12px;
+  background: #fff;
+  border: solid 1px black;
+  border-radius: 20px;
+}
+
+.card-login > * {
+  margin: 0;
+}
+
+.card-login__title {
+    font-size: 23px;
+    font-weight: 900;
+    color: #333;
+}
+
+.card-login__content {
+    font-size: 13px;
+    line-height: 18px;
+    color: #333;
+}
+
+.card-login__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card-login__form input {
+  margin-top: 10px;
+  outline: 0;
+  background: rgb(255, 255, 255);
+  box-shadow: transparent 0px 0px 0px 1px inset;
+  padding: 0.6em;
+  border-radius: 14px;
+  border: 1px solid #333;
+  color: black;
+}
+
+.card-login__form button, .query-button {
+  border: 0;
+  background: #111;
+  color: #fff;
+  padding: 0.68em;
+  border-radius: 14px;
+  font-weight: bold;
+}
+
+.sign-up-login:hover {
+  opacity: 0.8;
+} 

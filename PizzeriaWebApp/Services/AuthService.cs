@@ -20,9 +20,9 @@ namespace PizzeriaWebApp.Services
         {
             var u = new User
             {
-                Password = user.Password,
+                Name = user.Name,
                 Email = user.Email,
-                Name = user.Name
+                Password = user.Password,
             };
             _ctx.Users.Add(u);
             await _ctx.SaveChangesAsync();
@@ -48,9 +48,9 @@ namespace PizzeriaWebApp.Services
             var u = await CreateUser(
             new User
             {
-                Password = _passwordEncoder.Encode(user.Password),
+                Name = user.Name,
                 Email = user.Email,
-                Name = user.Name
+                Password = _passwordEncoder.Encode(user.Password),
             });
             var userRole = _ctx.Roles.FirstOrDefault(r => r.RoleName == "User");
             if (userRole != null)

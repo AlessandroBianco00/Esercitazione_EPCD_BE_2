@@ -57,9 +57,9 @@ namespace PizzeriaWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Register(User user)
+        public async Task<IActionResult> Register(User user)
         {
-            authenticationService.Register(user);
+            await authenticationService.Register(user);
             return RedirectToAction(nameof(Login));
         }
 

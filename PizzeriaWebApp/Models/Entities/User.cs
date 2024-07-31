@@ -16,6 +16,7 @@ namespace PizzeriaWebApp.Models.Entities
         public required string Email { get; set; }
         [Required]
         [StringLength(20)]
+        [Column(TypeName = "nvarchar(max)")]
         public required string Password { get; set; }
         public List<Role> Roles { get; set; } = [];
         public List<Order> Orders { get; set; } = [];

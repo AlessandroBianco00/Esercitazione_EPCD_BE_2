@@ -14,6 +14,7 @@ namespace PizzeriaWebApp.Models.Entities
         [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
         [Required]
+        [Column(TypeName = "nvarchar(max)")]
         public string ProductImage { get; set; }
         [Required]
         public int DeliveryMinutes { get; set; }
