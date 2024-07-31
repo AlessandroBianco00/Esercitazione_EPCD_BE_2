@@ -27,6 +27,16 @@ namespace PizzeriaWebApp.Context
                 .HasMany(u => u.Roles)
                 .WithMany(r => r.Users)
                 .UsingEntity(j => j.ToTable("RoleUser"));
+
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithOne(op => op.Order)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Orders)
+                .WithOne(op => op.Product)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
