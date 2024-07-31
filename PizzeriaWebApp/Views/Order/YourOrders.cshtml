@@ -1,0 +1,49 @@
+﻿@using PizzeriaWebApp.Models.Entities;
+@model IEnumerable<Order>;
+
+@{
+    ViewData["Title"] = "MyOrders";
+}
+
+<h6>Lista dei tuoi ordini</h6>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>OrderId</th>
+            <th>Address</th>
+            <th>Notes</th>
+            <th>Products</th>
+            <th>TotalCost</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var order in Model)
+        {
+            <tr>
+                <td>@order.OrderId</td>
+                <td>@order.Address</td>
+                <td>@order.Notes</td>
+                <td>
+                    <ul>
+                        @foreach(var i in order.Products)
+                        {
+                            <li>@i.Product.ProductName, @i.Quantity</li>
+                        }
+                    </ul>
+                </td>
+                <td>
+                    @{
+                        decimal total = 0;
+                        @foreach (var i in order.Products)
+                        {
+                            total += i.Quantity*i.Product.Price;
+                        }
+                    }
+                    @total &euro;
+                </td>
+            </tr>
+        }
+        
+    </tbody>
+</table>

@@ -29,6 +29,7 @@ builder.Services
 builder.Services
     .AddScoped<IProductService, ProductService>()
     .AddScoped<IIngredientService, IngredientService>()
+    .AddScoped<IOrderService, OrderService>()
     .AddScoped<IAuthService, AuthService>()
     .AddScoped<IPasswordEncoder, PasswordEncoder>()
     ;

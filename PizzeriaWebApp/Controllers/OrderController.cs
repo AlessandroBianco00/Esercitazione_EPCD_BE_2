@@ -14,14 +14,16 @@ namespace PizzeriaWebApp.Controllers
         private readonly ILogger<OrderController> _logger;
         private readonly IProductService _productService;
         private readonly IIngredientService _ingredientService;
+        private readonly IOrderService _orderService;
         private readonly DataContext _ctx;
 
-        public OrderController(DataContext dbContext, ILogger<OrderController> logger, IProductService productService, IIngredientService ingredientService)
+        public OrderController(DataContext dbContext, ILogger<OrderController> logger, IProductService productService, IIngredientService ingredientService, IOrderService orderService)
         {
             _logger = logger;
             _ctx = dbContext;
             _productService = productService;
             _ingredientService = ingredientService;
+            _orderService = orderService;
         }
 
         public async Task<IActionResult> Menu()
@@ -69,6 +71,7 @@ namespace PizzeriaWebApp.Controllers
 
             var validProductIds = await _ctx.Products.Select(p => p.ProductId).ToListAsync();
 
+            //Log prodotti per debug
             Console.WriteLine("Products in the order form:");
             foreach (var product in model.Products)
             {
@@ -116,8 +119,9 @@ namespace PizzeriaWebApp.Controllers
 
         public async Task<IActionResult> YourOrders()
         {
-            var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Name == "ccc");
-            return View();
+            var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Name == User.Identity.Name);
+            var orders = await _orderService.GetMyOrders(user.Name);
+            return View(orders);
         }
     }
 }
