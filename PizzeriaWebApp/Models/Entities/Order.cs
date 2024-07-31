@@ -5,9 +5,9 @@ namespace PizzeriaWebApp.Models.Entities
 {
     public enum Status
     {
-        Incomplete = '1',
-        Concluded = '2',
-        Processed = '3'
+        Incomplete = 1,
+        Concluded = 2,
+        Processed = 3
     }
     public class Order
     {

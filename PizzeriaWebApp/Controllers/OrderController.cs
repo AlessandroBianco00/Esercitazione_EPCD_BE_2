@@ -62,21 +62,54 @@ namespace PizzeriaWebApp.Controllers
         public async Task<IActionResult> MakeAnOrder(OrderFormModel model, string Username)
         {
             var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Name == Username);
+            if (user == null)
+            {
+                return NotFound("User not found");
+            }
+
+            var validProductIds = await _ctx.Products.Select(p => p.ProductId).ToListAsync();
+
+            Console.WriteLine("Products in the order form:");
+            foreach (var product in model.Products)
+            {
+                Console.WriteLine($"ProductId: {product.ProductId}, ProductName: {product.ProductName}, Quantity: {product.Quantity}, Valid: {validProductIds.Contains(product.ProductId)}");
+            }
+
+
+            var orderItems = model.Products
+                                  .Where(p => p.Quantity > 0 && validProductIds.Contains(p.ProductId))
+                                  .Select(p => new OrderItem
+                                  {
+                                      ProductId = p.ProductId,
+                                      Quantity = p.Quantity
+                                  }).ToList();
+
+            if (!orderItems.Any())
+            {
+                return BadRequest("No valid products in the order");
+            }
+
             var order = new Order
             {
                 Address = model.Address,
                 Notes = model.Notes,
-                Status = Status.Incomplete,
+                Status = Status.Concluded,
                 UserId = user.UserId,
-                Products = model.Products.Where(p => p.Quantity > 0).Select(p => new OrderItem
-                {
-                    ProductId = p.ProductId,
-                    Quantity = p.Quantity
-                }).ToList()
+                Products = orderItems
             };
 
             _ctx.Orders.Add(order);
-            await _ctx.SaveChangesAsync();
+            try
+            {
+                await _ctx.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                // Log the error (uncomment ex variable name and write a log.)
+                Console.WriteLine($"An error occurred while saving the order: {ex.Message}");
+                // Re-throw or handle as needed
+                throw;
+            }
 
             return RedirectToAction("Index", "Home");
         }
