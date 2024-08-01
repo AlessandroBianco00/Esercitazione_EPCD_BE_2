@@ -20,7 +20,7 @@ namespace PizzeriaWebApp.Models.Entities
         public string Address { get; set; }
         [Required]
         public string Notes { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }

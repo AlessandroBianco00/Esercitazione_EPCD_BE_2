@@ -3,6 +3,7 @@ using PizzeriaWebApp.Controllers;
 using PizzeriaWebApp.Interfaces;
 using PizzeriaWebApp.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace PizzeriaWebApp.Services
 {
@@ -59,9 +60,9 @@ namespace PizzeriaWebApp.Services
             return count;
         }
 
-        public async Task<int> DailyRevenue()
+        public async Task<decimal> DailyRevenue()
         {
-            var count = await _ctx.Orders.Include(o => o.Products).ThenInclude(i => i.Product).Where(o => o.Notes == "a").CountAsync();
+            var count = await _ctx.OrderItems.Include(o => o.Order).Include(o => o.Product).Where(o => o.Order.Date.Date == DateTime.Now.Date /*&& o.Order.Status == Status.Processed*/).SumAsync(o => o.Quantity * o.Product.Price);
             return count;
         }
     }

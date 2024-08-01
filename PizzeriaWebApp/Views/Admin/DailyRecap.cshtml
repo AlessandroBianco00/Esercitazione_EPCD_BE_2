@@ -1,10 +1,40 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "MyOrders";
 }
 
 <h1>Riepilogo del giorno</h1>
 
-<p>Gli ordini evasi oggi sono: </p>
+<p>Totale ordini evasi sono: <span id="count"></span></p>
 
-<p>Totale ricavi giornalieri: </p>
+<p>Totale ricavi giornalieri: <span id="total"></span></p>
+
+@section Scripts {
+
+    <script>
+        function getCount() {
+            $.ajax({
+                url: '/api/orderapi/processed',
+                method: 'get',
+                success: (data) => {
+                    let countSpan = $("#count");
+                    countSpan.empty();
+                    countSpan.text(data);
+                },
+                error: (e) => console.log(e)
+            })
+
+            $.ajax({
+                url: '/api/orderapi/dailyrevenue',
+                method: 'get',
+                success: (data) => {
+                    let totalSpan = $("#total");
+                    totalSpan.empty();
+                    totalSpan.text(data);
+                },
+                error: (e) => console.log(e)
+            })
+        }
+
+        getCount();
+    </script>
+}

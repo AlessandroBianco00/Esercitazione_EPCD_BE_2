@@ -24,14 +24,14 @@ namespace PizzeriaWebApp.Controllers.Api
         [HttpGet("processed")]
         public async Task<ActionResult> NumberOfOrders()
         {
-            var orderCount = _orderService.CountProcessedOrders();
+            var orderCount = await _orderService.CountProcessedOrders();
             return Ok(orderCount);
         }
 
         [HttpGet("dailyrevenue")]
         public async Task<ActionResult> DailyRevenue()
         {
-            var revenue = _orderService.DailyRevenue();
+            var revenue = await _orderService.DailyRevenue();
             return Ok(revenue);
         }
     }
