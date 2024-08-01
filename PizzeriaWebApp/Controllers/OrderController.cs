@@ -39,12 +39,11 @@ namespace PizzeriaWebApp.Controllers
             return View();
         }
 
-        /*public async Task<IActionResult> MakeAnOrder()
+        public async Task<IActionResult> ProcessOrder(int id)
         {
-            var list = await _productService.GetAll();
-            ViewBag.Products = list;
-            return View();
-        }*/
+            var proccessedOrder = await _orderService.ProcessOrder(id);
+            return RedirectToAction("ConcludedOrders", "Admin");
+        }
 
         public async Task<IActionResult> MakeAnOrder()
         {

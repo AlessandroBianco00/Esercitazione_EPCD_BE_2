@@ -1,0 +1,48 @@
+﻿@using PizzeriaWebApp.Models.Entities;
+@model IEnumerable<Order>;
+
+@{
+    ViewData["Title"] = "Concluded Orders";
+}
+<h6>Ordini conclusi</h6>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>OrderId</th>
+                        <th>Address</th>
+                        <th>Notes</th>
+                        <th>Products</th>
+                        <th>Status</th>
+                        <th>Process</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var order in Model)
+                    {
+                        <tr>
+                            <td>@order.OrderId</td>
+                            <td>@order.Address</td>
+                            <td>@order.Notes</td>
+                            <td>
+                                <ul>
+                                    @foreach (var i in order.Products)
+                                    {
+                                        <li>@i.Product.ProductName, @i.Quantity</li>
+                                    }
+                                </ul>
+                            </td>
+                            <td>
+                                @((Status)order.Status)
+                            </td>
+                            <td><button asp-controller="Order" asp-action="ProcessOrder" asp-route-id="@order.OrderId">Evadi ordine</button></td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

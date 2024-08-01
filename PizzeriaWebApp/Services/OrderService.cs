@@ -15,11 +15,36 @@ namespace PizzeriaWebApp.Services
             _ctx = dbContext;
         }
 
+        public async Task<Order> GetById(int id)
+        {
+            var order = await _ctx.Orders.SingleOrDefaultAsync(o => o.OrderId == id);
+            return order;
+        }
+
         public async Task<IEnumerable<Order>> GetMyOrders(string username)
         {
             var user = await _ctx.Users.FirstOrDefaultAsync(u => u.Name == username);
             var orders = await _ctx.Orders.Include(o => o.Products).ThenInclude(i => i.Product).Where(p => p.UserId == user.UserId).ToListAsync();
             return orders;
+        }
+
+        public async Task<IEnumerable<Order>> GetConcludedOrders()
+        {
+            var orders = await _ctx.Orders.Where(o => o.Status == Status.Concluded).Include(o => o.Products).ThenInclude(p => p.Product).ToListAsync();
+            return orders;
+        }
+
+        public async Task<Order> ProcessOrder(int id)
+        {
+            var initialOrder = await GetById(id);
+
+            if (initialOrder != null)
+            {
+                initialOrder.Status = (Status)3;
+                await _ctx.SaveChangesAsync();
+            }
+
+            return initialOrder;
         }
     }
 }
