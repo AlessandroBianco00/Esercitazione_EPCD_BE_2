@@ -34,6 +34,12 @@ namespace PizzeriaWebApp.Services
             return orders;
         }
 
+        public async Task<IEnumerable<Order>> GetProcessedOrders()
+        {
+            var orders = await _ctx.Orders.Where(o => o.Status == Status.Processed).Include(o => o.Products).ThenInclude(p => p.Product).ToListAsync();
+            return orders;
+        }
+
         public async Task<Order> ProcessOrder(int id)
         {
             var initialOrder = await GetById(id);
@@ -45,6 +51,18 @@ namespace PizzeriaWebApp.Services
             }
 
             return initialOrder;
+        }
+
+        public async Task<int> CountProcessedOrders()
+        {
+            var count = await _ctx.Orders.Where(o => o.Status == Status.Processed).CountAsync();
+            return count;
+        }
+
+        public async Task<int> DailyRevenue()
+        {
+            var count = await _ctx.Orders.Include(o => o.Products).ThenInclude(i => i.Product).Where(o => o.Notes == "a").CountAsync();
+            return count;
         }
     }
 }

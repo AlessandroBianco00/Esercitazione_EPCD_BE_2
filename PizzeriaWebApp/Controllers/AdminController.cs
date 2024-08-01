@@ -27,5 +27,10 @@ namespace PizzeriaWebApp.Controllers
             var orders = await _orderService.GetConcludedOrders();
             return View(orders);
         }
+
+        public async Task<IActionResult> DailyRecap()
+        {
+            return View();
+        }
     }
 }

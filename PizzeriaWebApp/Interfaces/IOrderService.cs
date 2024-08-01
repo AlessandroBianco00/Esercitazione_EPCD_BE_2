@@ -8,5 +8,8 @@ namespace PizzeriaWebApp.Interfaces
         public Task<Order> ProcessOrder(int id);
         public Task<IEnumerable<Order>> GetMyOrders(string username);
         public Task<IEnumerable<Order>> GetConcludedOrders();
+        public  Task<IEnumerable<Order>> GetProcessedOrders();
+        public  Task<int> CountProcessedOrders();
+        public Task<int> DailyRevenue();
     }
 }
