@@ -43,6 +43,7 @@ namespace PizzeriaWebApp.Controllers
             return View(model);
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> AllProducts()
         {
             var list = await _productService.GetAll();
