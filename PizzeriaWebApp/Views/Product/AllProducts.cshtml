@@ -5,7 +5,7 @@
     ViewData["Title"] = "AllProducts";
 }
 
-<h1 class="fw-bold">Sfoglia il catalogo</h1>
+<h1 class="fw-bold orangered">Sfoglia il catalogo</h1>
 <div class="row g-2">
     @if (Model != null)
     {
@@ -24,7 +24,7 @@
                         {
                             <p>@i.IngredientName</p>
                         }
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                        <a asp-controller="Order" asp-action="MakeAnOrder" class="btn btn-primary">Make an order</a>
                     </div>
                 </div>
             </div>

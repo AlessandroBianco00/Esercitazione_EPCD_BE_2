@@ -1,40 +1,42 @@
 ﻿@model PizzeriaWebApp.Models.ViewModels.OrderFormModel
 
-<form asp-action="MakeAnOrder" method="post">
-    @Html.AntiForgeryToken()
-    <div>
-        <label>Address</label>
-        <input asp-for="Address" type="text"/>
-    </div>
-    <div>
-        <label>Notes</label>
-        <input asp-for="Notes" type="text" />
-    </div>
-    <div class="form-check">
-        <input class="form-check-input" name="Username" value="@User.Identity.Name" type="hidden"/>
-    </div>
-    <table>
-        <thead>
-            <tr>
-                <th>Product</th>
-                <th>Price</th>
-                <th>Quantity</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Products.Count; i++)
-            {
+<div class="form-container">
+    <form asp-action="MakeAnOrder" method="post" class="form">
+        @Html.AntiForgeryToken()
+        <div class="form-group">
+            <label>Address</label>
+            <input asp-for="Address" type="text" />
+        </div>
+        <div class="form-group">
+            <label>Notes</label>
+            <input asp-for="Notes" type="text" />
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" name="Username" value="@User.Identity.Name" type="hidden" />
+        </div>
+        <table>
+            <thead>
                 <tr>
-                    <td><input asp-for="Products[i].ProductName" type="hidden" value="@Model.Products[i].ProductName" />@Model.Products[i].ProductName</td>
-                    <td><input asp-for="Products[i].Price" type="hidden" value="@Model.Products[i].Price" />@Model.Products[i].Price</td>
-                    <td><input asp-for="Products[i].Quantity" type="number"/></td>
-                    <td><input asp-for="Products[i].ProductId" type="hidden" value="@Model.Products[i].ProductId" /></td>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <button type="submit">Submit Order</button>
-</form>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <tr>
+                        <td><input asp-for="Products[i].ProductName" type="hidden" value="@Model.Products[i].ProductName" />@Model.Products[i].ProductName</td>
+                        <td><input asp-for="Products[i].Price" type="hidden" value="@Model.Products[i].Price" />@Model.Products[i].Price</td>
+                        <td><input asp-for="Products[i].Quantity" type="number" class="qt-input" /></td>
+                        <td><input asp-for="Products[i].ProductId" type="hidden" value="@Model.Products[i].ProductId" /></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <button type="submit" class="form-submit-btn">Submit Order</button>
+    </form>
+</div>
 
 @section Scripts {
     @{
