@@ -5,9 +5,11 @@ using PizzeriaWebApp.Models.ViewModels;
 using PizzeriaWebApp.Models.Entities;
 using PizzeriaWebApp.Context;
 using PizzeriaWebApp.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PizzeriaWebApp.Controllers
 {
+    [Authorize(Policy = Policies.IsAdmin)]
     public class ProductController : Controller
     {
         private readonly ILogger<ProductController> _logger;

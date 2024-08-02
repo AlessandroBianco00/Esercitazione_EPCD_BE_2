@@ -18,15 +18,9 @@ namespace PizzeriaWebApp.Services
         }
         public async Task<User> CreateUser(User user)
         {
-            var u = new User
-            {
-                Name = user.Name,
-                Email = user.Email,
-                Password = user.Password,
-            };
-            _ctx.Users.Add(u);
+            _ctx.Users.Add(user);
             await _ctx.SaveChangesAsync();
-            return u;
+            return user;
         }
 
         public async Task<User> Login(string email, string password)
@@ -45,20 +39,20 @@ namespace PizzeriaWebApp.Services
 
         public async Task<User> Register(User user)
         {
-            var u = await CreateUser(
+            var u = 
             new User
             {
                 Name = user.Name,
                 Email = user.Email,
                 Password = _passwordEncoder.Encode(user.Password),
-            });
+            };
             var userRole = _ctx.Roles.FirstOrDefault(r => r.RoleName == "User");
             if (userRole != null)
             {
-                user.Roles.Add(userRole);
+                u.Roles.Add(userRole);
             }
 
-            return new User { UserId = u.UserId, Email = u.Email, Password = u.Password, Name = u.Name };
+            return await CreateUser(u);
         }
     }
 }

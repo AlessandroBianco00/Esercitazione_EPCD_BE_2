@@ -26,19 +26,14 @@ namespace PizzeriaWebApp.Controllers
             _orderService = orderService;
         }
 
+        // Inutilizzata
         public async Task<IActionResult> Menu()
         {
             var list = await _productService.GetAll();
             return View(list);
         }
 
-        public async Task<IActionResult> AddToOrder(int id)
-        {
-            var product = await _productService.GetAll();
-            ViewBag.Product = product;
-            return View();
-        }
-
+        [Authorize(Policy = Policies.IsAdmin)]
         public async Task<IActionResult> ProcessOrder(int id)
         {
             var proccessedOrder = await _orderService.ProcessOrder(id);

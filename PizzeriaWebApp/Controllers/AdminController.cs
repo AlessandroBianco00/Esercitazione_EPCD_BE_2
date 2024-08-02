@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PizzeriaWebApp.Context;
 using PizzeriaWebApp.Interfaces;
 using PizzeriaWebApp.Models.Entities;
@@ -6,6 +7,7 @@ using PizzeriaWebApp.Services;
 
 namespace PizzeriaWebApp.Controllers
 {
+    [Authorize(Policy = Policies.IsAdmin)]
     public class AdminController : Controller
     {
         private readonly ILogger<AdminController> _logger;

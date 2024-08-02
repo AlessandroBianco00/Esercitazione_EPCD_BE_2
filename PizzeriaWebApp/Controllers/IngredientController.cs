@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PizzeriaWebApp.Context;
 using PizzeriaWebApp.Interfaces;
 
 namespace PizzeriaWebApp.Controllers
 {
+    [Authorize(Policy = Policies.IsAdmin)]
     public class IngredientController : Controller
     {
         private readonly ILogger<ProductController> _logger;
