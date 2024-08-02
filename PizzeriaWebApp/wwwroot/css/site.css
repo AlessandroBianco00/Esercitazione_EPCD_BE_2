@@ -46,6 +46,13 @@ nav.navbar {
     color: orangered;
 }
 
+/* Index */
+
+.hero-home {
+    background-image: url(https://citynews-triesteprima.stgy.ovh/~media/original-hi/63689161222273/forno-a-legna-2.jpg);
+    height: 60vh;
+}
+
 /* Footer */
 
 .footer {
